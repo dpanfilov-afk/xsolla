@@ -1,0 +1,2735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XSquad — Xsolla Gamer Hub</title>
+  <style>
+    /* ══════════════════════════════════════════════════════
+       @font-face — Xsolla CDN
+       ══════════════════════════════════════════════════════ */
+
+    /* Pilat Wide (B2C headings) */
+    @font-face { font-family: 'Pilat Wide'; src: url('https://cdn.xsolla.net/strapi-v2-bucket-prod/Pilat_Test_Medium_/Pilat_Test_Medium.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Pilat Wide'; src: url('https://cdn.xsolla.net/strapi-v2-bucket-prod/Pilat_Test_Demi_Bold_bee67c470a/Pilat_Test_Demi_Bold_bee67c470a.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Pilat Wide'; src: url('https://cdn.xsolla.net/strapi-v2-bucket-prod/Pilat_Test_Bold_b12b40d234/Pilat_Test_Bold_b12b40d234.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Pilat Wide'; src: url('https://cdn.xsolla.net/strapi-v2-bucket-prod/Pilat_Test_Heavy_2885678ca4/Pilat_Test_Heavy_2885678ca4.otf') format('opentype'); font-weight: 800; font-style: normal; font-display: swap; }
+
+    /* Pilat (B2B headings) */
+    @font-face { font-family: 'Pilat'; src: url('https://cdn.xsolla.net/merchant-bucket-prod/files/uploaded/722279/55a03110b2400b778d485de2c8d064c0.woff2') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Pilat'; src: url('https://cdn.xsolla.net/merchant-bucket-prod/files/uploaded/722279/e968c9cc76e48ff6111c90534549bbf9.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Pilat'; src: url('https://cdn.xsolla.net/merchant-bucket-prod/files/uploaded/722279/ed4fe74e88aaacc6978f06a862e75b08.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Pilat'; src: url('https://cdn.xsolla.net/merchant-bucket-prod/files/uploaded/722279/7450f429979af7eaa8fa4d4d91cee927.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Pilat'; src: url('https://cdn.xsolla.net/merchant-bucket-prod/files/uploaded/722279/218d647ff7690c1e312f6943e29af375.woff2') format('woff2'); font-weight: 800; font-style: normal; font-display: swap; }
+
+    /* Aktiv Grotesk (body, all contexts) */
+    @font-face { font-family: 'Aktiv Grotesk'; src: url('https://cdn.xsolla.net/strapi-v2-bucket-prod/Pilat_Test_Light_c4650750bb/Pilat_Test_Light_c4650750bb.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Aktiv Grotesk'; src: url('https://cdn.xsolla.net/strapi-v2-bucket-prod/Pilat_Test_Book_5cb49cd592/Pilat_Test_Book_5cb49cd592.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Aktiv Grotesk'; src: url('https://cdn.xsolla.net/strapi-v2-bucket-prod/Pilat_Test_Demi_e9bed59107/Pilat_Test_Demi_e9bed59107.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Aktiv Grotesk'; src: url('https://cdn.xsolla.net/strapi-v2-bucket-prod/Pilat_Test_Bold_195d1b44fa/Pilat_Test_Bold_195d1b44fa.otf') format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Aktiv Grotesk'; src: url('https://cdn.xsolla.net/strapi-v2-bucket-prod/Pilat_Test_Bold_195d1b44fa/Pilat_Test_Bold_195d1b44fa.otf') format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+
+    /* ══════════════════════════════════════════════════════
+       CSS Custom Properties — Xsolla Design Tokens
+       Theme: pentagram-dark (packages/core/src/tokens/pentagram-dark.json)
+       ══════════════════════════════════════════════════════ */
+    :root {
+      /* ── Font Stacks ── */
+      --xui-font-heading-b2b: 'Pilat', 'Aktiv Grotesk', 'Noto Sans', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --xui-font-heading-b2c: 'Pilat Wide', 'Aktiv Grotesk', 'Noto Sans', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --xui-font-body: 'Aktiv Grotesk', 'Noto Sans', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      /* Promo / marketing pages — Pilat Wide Bold for semantic h1 & h2 (see SKILL.md); aliases B2C heading stack + registered 700 face */
+      --xui-font-promo-heading: var(--xui-font-heading-b2c);
+      --xui-font-weight-promo-heading: 700;
+
+      /* ── Spacing ── */
+      --xui-space-xs: 4px;
+      --xui-space-s: 8px;
+      --xui-space-m: 16px;
+      --xui-space-l: 24px;
+      --xui-space-xl: 32px;
+
+      /* ── Border Radius ── */
+      --xui-radius-button: 4px;
+      --xui-radius-card: 12px;
+      --xui-radius-input: 4px;
+      --xui-radius-tag-sm: 2px;
+      --xui-radius-tag-lg: 4px;
+      --xui-radius-avatar-sm: 4px;
+      --xui-radius-avatar-lg: 8px;
+      --xui-radius-avatar-circle: 999px;
+
+      /* ── Shadows ── */
+      --xui-shadow-active: 0px 1px 2px rgba(7,7,8,0.2), 0px 1px 3px 1px rgba(7,7,8,0.1);
+      --xui-shadow-surface: 0px 1px 2px rgba(7,7,8,0.2), 0px 2px 6px 2px rgba(7,7,8,0.1);
+      --xui-shadow-surface-hover: 0px 4px 8px 3px rgba(7,7,8,0.1), 0px 1px 3px rgba(7,7,8,0.2);
+      --xui-shadow-popover: 0px 6px 10px 4px rgba(7,7,8,0.1), 0px 2px 3px rgba(7,7,8,0.2);
+      --xui-shadow-modal: 0px 8px 12px 6px rgba(7,7,8,0.1), 0px 4px 4px rgba(7,7,8,0.2);
+
+      /* ── Background ── */
+      --xui-bg-primary: #1b2628;
+      --xui-bg-secondary: #141d1f;
+      --xui-bg-inverse: #ffffff;
+      --xui-bg-brand-primary: #80eaff;
+      --xui-bg-brand-secondary: #0b3841;
+      --xui-bg-brand-extra-primary: #cef655;
+      --xui-bg-brand-extra-secondary: #566c13;
+      --xui-bg-success-primary: #95ff80;
+      --xui-bg-success-secondary: #14410b;
+      --xui-bg-warning-primary: #ffc380;
+      --xui-bg-warning-secondary: #6c4313;
+      --xui-bg-alert-primary: #e84f30;
+      --xui-bg-alert-secondary: #6c2213;
+      --xui-bg-neutral-primary: #99aeb2;
+      --xui-bg-neutral-secondary: #34474b;
+
+      /* ── Content ── */
+      --xui-content-primary: #e8eced;
+      --xui-content-secondary: rgba(232,236,237,0.72);
+      --xui-content-tertiary: rgba(232,236,237,0.58);
+      --xui-content-inverse: #000000;
+      --xui-content-brand-primary: #80eaff;
+      --xui-content-brand-secondary: #55dcf6;
+      --xui-content-brand-extra-primary: #cef655;
+      --xui-content-brand-extra-secondary: #9bc323;
+      --xui-content-success-primary: #70f655;
+      --xui-content-success-secondary: #3dc322;
+      --xui-content-warning-primary: #f6ab55;
+      --xui-content-warning-secondary: #c37822;
+      --xui-content-alert-primary: #f67055;
+      --xui-content-alert-secondary: #e84f30;
+      --xui-content-neutral-primary: #99aeb2;
+      --xui-content-neutral-secondary: #4b6368;
+      --xui-content-on-brand: #000000;
+      --xui-content-on-brand-extra: #000000;
+      --xui-content-on-success: #000000;
+      --xui-content-on-warning: #000000;
+      --xui-content-on-alert: #ffffff;
+      --xui-content-on-neutral: #ffffff;
+      --xui-content-static-light: #ffffff;
+      --xui-content-static-dark: #000000;
+
+      /* ── Border ── */
+      --xui-border-primary: #ffffff;
+      --xui-border-secondary: rgba(178,242,255,0.1);
+      --xui-border-inverse: rgba(0,0,0,0.15);
+      --xui-border-brand: #55dcf6;
+      --xui-border-brand-extra: #cef655;
+      --xui-border-success: #70f655;
+      --xui-border-warning: #f6ab55;
+      --xui-border-alert: #f67055;
+      --xui-border-neutral: #9580ff;
+
+      /* ── Overlay ── */
+      --xui-overlay-mono: rgba(178,242,255,0.06);
+      --xui-overlay-brand: rgba(128,234,255,0.2);
+      --xui-overlay-brand-extra: rgba(206,246,85,0.3);
+      --xui-overlay-success: rgba(149,255,128,0.2);
+      --xui-overlay-warning: rgba(255,195,128,0.24);
+      --xui-overlay-alert: rgba(232,79,48,0.32);
+      --xui-overlay-neutral: rgba(123,152,157,0.28);
+
+      /* ── Layer ── */
+      --xui-layer-scrim: rgba(0,0,0,0.5);
+      --xui-layer-float: #000000;
+
+      /* ── Control: Brand ── */
+      --xui-ctrl-brand-primary-bg: #80eaff;
+      --xui-ctrl-brand-primary-bg-hover: #b2f2ff;
+      --xui-ctrl-brand-primary-bg-press: #55dcf6;
+      --xui-ctrl-brand-primary-bg-disable: rgba(52,71,75,0.85);
+      --xui-ctrl-brand-primary-border: #31cae8;
+      --xui-ctrl-brand-primary-border-hover: #55dcf6;
+      --xui-ctrl-brand-secondary-bg: #135d6c;
+      --xui-ctrl-brand-secondary-bg-hover: #1b8398;
+      --xui-ctrl-brand-secondary-bg-press: #0b3841;
+      --xui-ctrl-brand-secondary-border: #22a8c3;
+      --xui-ctrl-brand-secondary-border-hover: #22a8c3;
+      --xui-ctrl-brand-tertiary-bg: transparent;
+      --xui-ctrl-brand-tertiary-bg-hover: #0b3841;
+      --xui-ctrl-brand-tertiary-bg-press: #135d6c;
+      --xui-ctrl-brand-ghost-bg: transparent;
+      --xui-ctrl-brand-ghost-bg-hover: rgba(128,234,255,0.04);
+      --xui-ctrl-brand-ghost-bg-press: rgba(128,234,255,0.08);
+      --xui-ctrl-brand-ghost-border: rgba(128,234,255,0.16);
+      --xui-ctrl-brand-ghost-border-hover: rgba(128,234,255,0.24);
+      --xui-ctrl-brand-text-primary: #000000;
+      --xui-ctrl-brand-text-secondary: #80eaff;
+      --xui-ctrl-brand-text-tertiary: #80eaff;
+      --xui-ctrl-brand-text-ghost: #80eaff;
+      --xui-ctrl-brand-text-disable: rgba(232,236,237,0.2);
+
+      /* ── Control: Mono ── */
+      --xui-ctrl-mono-primary-bg: #ffffff;
+      --xui-ctrl-mono-primary-bg-hover: #e8eced;
+      --xui-ctrl-mono-primary-bg-press: #f4f5f6;
+      --xui-ctrl-mono-secondary-bg: #34474b;
+      --xui-ctrl-mono-secondary-bg-hover: #4b6368;
+      --xui-ctrl-mono-secondary-bg-press: #233134;
+      --xui-ctrl-mono-secondary-border: #4b6368;
+      --xui-ctrl-mono-secondary-border-hover: #607f85;
+      --xui-ctrl-mono-tertiary-bg: transparent;
+      --xui-ctrl-mono-tertiary-bg-hover: #233134;
+      --xui-ctrl-mono-tertiary-bg-press: #34474b;
+      --xui-ctrl-mono-ghost-bg: transparent;
+      --xui-ctrl-mono-ghost-bg-hover: rgba(255,255,255,0.04);
+      --xui-ctrl-mono-ghost-bg-press: rgba(255,255,255,0.08);
+      --xui-ctrl-mono-ghost-border: rgba(255,255,255,0.16);
+      --xui-ctrl-mono-ghost-border-hover: rgba(255,255,255,0.24);
+      --xui-ctrl-mono-text-primary: #000000;
+      --xui-ctrl-mono-text-secondary: #ffffff;
+      --xui-ctrl-mono-text-tertiary: #ffffff;
+      --xui-ctrl-mono-text-ghost: #ffffff;
+      --xui-ctrl-mono-text-disable: rgba(232,236,237,0.2);
+
+      /* ── Control: Alert ── */
+      --xui-ctrl-alert-primary-bg: #f67055;
+      --xui-ctrl-alert-primary-bg-hover: #ff9580;
+      --xui-ctrl-alert-primary-bg-press: #e84f30;
+      --xui-ctrl-alert-secondary-bg: rgba(232,79,48,0.4);
+      --xui-ctrl-alert-secondary-bg-hover: rgba(246,112,85,0.4);
+      --xui-ctrl-alert-secondary-bg-press: rgba(195,61,34,0.4);
+      --xui-ctrl-alert-tertiary-bg: transparent;
+      --xui-ctrl-alert-tertiary-bg-hover: rgba(255,170,153,0.07);
+      --xui-ctrl-alert-tertiary-bg-press: rgba(255,85,51,0.12);
+      --xui-ctrl-alert-ghost-bg: transparent;
+      --xui-ctrl-alert-ghost-bg-hover: rgba(246,112,85,0.04);
+      --xui-ctrl-alert-ghost-bg-press: rgba(246,112,85,0.08);
+      --xui-ctrl-alert-ghost-border: rgba(246,112,85,0.16);
+      --xui-ctrl-alert-ghost-border-hover: rgba(246,112,85,0.24);
+      --xui-ctrl-alert-text-primary: #ffffff;
+      --xui-ctrl-alert-text-secondary: #ffffff;
+      --xui-ctrl-alert-text-tertiary: #f67055;
+      --xui-ctrl-alert-text-ghost: #f67055;
+      --xui-ctrl-alert-text-disable: rgba(232,236,237,0.2);
+
+      /* ── Control: BrandExtra ── */
+      --xui-ctrl-brand-extra-primary-bg: #cef655;
+      --xui-ctrl-brand-extra-primary-bg-hover: #bae831;
+      --xui-ctrl-brand-extra-primary-bg-press: #dfff80;
+      --xui-ctrl-brand-extra-secondary-bg: rgba(186,232,49,0.4);
+      --xui-ctrl-brand-extra-secondary-bg-hover: rgba(206,246,85,0.4);
+      --xui-ctrl-brand-extra-secondary-bg-press: rgba(186,232,49,0.4);
+      --xui-ctrl-brand-extra-tertiary-bg: transparent;
+      --xui-ctrl-brand-extra-tertiary-bg-hover: rgba(206,246,85,0.07);
+      --xui-ctrl-brand-extra-tertiary-bg-press: rgba(186,232,49,0.12);
+      --xui-ctrl-brand-extra-ghost-bg: transparent;
+      --xui-ctrl-brand-extra-ghost-bg-hover: rgba(206,246,85,0.04);
+      --xui-ctrl-brand-extra-ghost-bg-press: rgba(206,246,85,0.08);
+      --xui-ctrl-brand-extra-ghost-border: rgba(206,246,85,0.16);
+      --xui-ctrl-brand-extra-ghost-border-hover: rgba(206,246,85,0.24);
+      --xui-ctrl-brand-extra-text-primary: #000000;
+      --xui-ctrl-brand-extra-text-secondary: #ffffff;
+      --xui-ctrl-brand-extra-text-tertiary: #cef655;
+      --xui-ctrl-brand-extra-text-ghost: #cef655;
+      --xui-ctrl-brand-extra-text-disable: rgba(232,236,237,0.2);
+
+      /* ── Control: Input ── */
+      --xui-ctrl-input-bg: rgba(178,242,255,0.12);
+      --xui-ctrl-input-bg-hover: rgba(178,242,255,0.15);
+      --xui-ctrl-input-bg-disable: rgba(178,242,255,0.25);
+      --xui-ctrl-input-border: rgba(178,242,255,0.1);
+      --xui-ctrl-input-border-hover: rgba(178,242,255,0.15);
+      --xui-ctrl-input-border-disable: transparent;
+      --xui-ctrl-input-text: #ffffff;
+      --xui-ctrl-input-placeholder: rgba(255,255,255,0.56);
+      --xui-ctrl-input-text-disable: rgba(255,255,255,0.36);
+
+      /* ── Control: Focus ── */
+      --xui-ctrl-focus-bg: #000000;
+      --xui-ctrl-focus-border: #55dcf6;
+
+      /* ── Control: AppButton ── */
+      --xui-ctrl-app-btn-bg: #34474b;
+      --xui-ctrl-app-btn-bg-hover: #4b6368;
+      --xui-ctrl-app-btn-bg-press: #607f85;
+      --xui-ctrl-app-btn-border: #4b6368;
+      --xui-ctrl-app-btn-border-hover: #607f85;
+      --xui-ctrl-app-btn-text: #b7c5c8;
+
+      /* ── Control: Link ── */
+      --xui-ctrl-text-disable: rgba(255,255,255,0.4);
+      --xui-ctrl-link-primary: #55dcf6;
+      --xui-ctrl-link-primary-hover: #80eaff;
+      --xui-ctrl-link-secondary: #cef655;
+      --xui-ctrl-link-secondary-hover: #dfff80;
+
+      /* ── Control: Check (Checkbox/Radio) ── */
+      --xui-ctrl-check-bg: #135d6c;
+      --xui-ctrl-check-bg-hover: #1b8398;
+      --xui-ctrl-check-bg-disable: rgba(178,242,255,0.25);
+      --xui-ctrl-check-border: #22a8c3;
+      --xui-ctrl-check-border-hover: #22a8c3;
+      --xui-ctrl-check-icon: #80eaff;
+
+      /* ── Control: Switch ── */
+      --xui-ctrl-switch-bg: #135d6c;
+      --xui-ctrl-switch-bg-hover: #1b8398;
+      --xui-ctrl-switch-border: #22a8c3;
+
+      /* ── Control: Knob ── */
+      --xui-ctrl-knob-bg: #80eaff;
+      --xui-ctrl-knob-bg-hover: #b2f2ff;
+      --xui-ctrl-knob-bg-inactive: #ffffff;
+
+      /* ── Control: Faint (unchecked Checkbox / Radio background) ── */
+      --xui-ctrl-faint-bg: rgba(178,242,255,0.15);
+      --xui-ctrl-faint-bg-hover: rgba(178,242,255,0.2);
+      --xui-ctrl-faint-border: rgba(178,242,255,0.1);
+      --xui-ctrl-faint-border-hover: rgba(178,242,255,0.15);
+
+      /* ── Control: Segmented ── */
+      --xui-ctrl-segmented-bg: rgba(178,242,255,0.1);
+      --xui-ctrl-segmented-bg-hover: rgba(178,242,255,0.1);
+      --xui-ctrl-segmented-bg-active: rgba(178,242,255,0.15);
+      --xui-ctrl-segmented-text: #ffffff;
+      --xui-ctrl-segmented-text-disable: rgba(255,255,255,0.4);
+
+      /* ── Control: ToggleButton ── */
+      --xui-ctrl-toggle-bg: rgba(178,242,255,0.12);
+      --xui-ctrl-toggle-bg-hover: rgba(178,242,255,0.15);
+      --xui-ctrl-toggle-bg-active: #135d6c;
+      --xui-ctrl-toggle-border: rgba(178,242,255,0.1);
+      --xui-ctrl-toggle-border-active: #22a8c3;
+      --xui-ctrl-toggle-text: #ffffff;
+      --xui-ctrl-toggle-text-active: #80eaff;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       CSS Reset & Base Styles
+       ══════════════════════════════════════════════════════ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Page canvas: Pentagram Dark body = --xui-bg-secondary (#141d1f) — always */
+    body {
+      font-family: var(--xui-font-body);
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 400;
+      color: var(--xui-content-primary);
+      background-color: var(--xui-bg-secondary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       Component Styles — injected per page
+       ══════════════════════════════════════════════════════ */
+    /* from components/button.md */
+    .xui-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: fit-content;
+      max-width: 100%;
+      box-sizing: border-box;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-family: var(--xui-font-body);
+      font-weight: 500;
+      transition: background-color 0.15s ease, box-shadow 0.15s ease;
+      position: relative;
+      white-space: nowrap;
+      outline: none;
+    }
+    .xui-btn:focus-visible {
+      outline: 2px solid var(--xui-border-brand);
+      outline-offset: 2px;
+    }
+    .xui-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .xui-btn--full-width { width: 100%; }
+    .xui-btn--spread { justify-content: space-between; }
+
+    .xui-btn--lg { height: 56px; padding: 0 20px; font-size: 18px; border-radius: 8px; }
+    .xui-btn--md { height: 48px; padding: 0 20px; font-size: 16px; border-radius: 8px; }
+    .xui-btn--sm { height: 40px; padding: 0 20px; font-size: 14px; border-radius: 4px; }
+    .xui-btn--xs { height: 32px; padding: 0 20px; font-size: 12px; border-radius: 4px; }
+
+    .xui-btn--primary.xui-btn--brand {
+      background: var(--xui-ctrl-brand-primary-bg);
+      border-color: var(--xui-ctrl-brand-primary-border);
+      color: var(--xui-ctrl-brand-text-primary);
+    }
+    .xui-btn--primary.xui-btn--brand:hover {
+      background: var(--xui-ctrl-brand-primary-bg-hover);
+      border-color: var(--xui-ctrl-brand-primary-border-hover);
+    }
+    .xui-btn--primary.xui-btn--brand:active { background: var(--xui-ctrl-brand-primary-bg-press); }
+
+    .xui-btn--secondary.xui-btn--brand {
+      background: var(--xui-ctrl-brand-secondary-bg);
+      border-color: var(--xui-ctrl-brand-secondary-border);
+      color: var(--xui-ctrl-brand-text-secondary);
+    }
+    .xui-btn--secondary.xui-btn--brand:hover {
+      background: var(--xui-ctrl-brand-secondary-bg-hover);
+      border-color: var(--xui-ctrl-brand-secondary-border-hover);
+    }
+
+    .xui-btn--tertiary.xui-btn--brand {
+      background: var(--xui-ctrl-brand-tertiary-bg);
+      color: var(--xui-ctrl-brand-text-tertiary);
+    }
+    .xui-btn--tertiary.xui-btn--brand:hover { background: var(--xui-ctrl-brand-tertiary-bg-hover); }
+
+    .xui-btn--ghost.xui-btn--brand {
+      background: var(--xui-ctrl-brand-ghost-bg);
+      color: var(--xui-ctrl-brand-text-ghost);
+      border-color: var(--xui-ctrl-brand-ghost-border);
+    }
+    .xui-btn--ghost.xui-btn--brand:hover {
+      background: var(--xui-ctrl-brand-ghost-bg-hover);
+      border-color: var(--xui-ctrl-brand-ghost-border-hover);
+    }
+
+    .xui-btn--secondary.xui-btn--mono {
+      background: var(--xui-ctrl-mono-secondary-bg);
+      border-color: var(--xui-ctrl-mono-secondary-border);
+      color: var(--xui-ctrl-mono-text-secondary);
+    }
+    .xui-btn--secondary.xui-btn--mono:hover {
+      background: var(--xui-ctrl-mono-secondary-bg-hover);
+      border-color: var(--xui-ctrl-mono-secondary-border-hover);
+    }
+
+    .xui-btn--tertiary.xui-btn--mono {
+      background: var(--xui-ctrl-mono-tertiary-bg);
+      color: var(--xui-ctrl-mono-text-tertiary);
+    }
+    .xui-btn--tertiary.xui-btn--mono:hover { background: var(--xui-ctrl-mono-tertiary-bg-hover); }
+
+    .xui-btn--ghost.xui-btn--mono {
+      background: var(--xui-ctrl-mono-ghost-bg);
+      color: var(--xui-ctrl-mono-text-ghost);
+      border-color: var(--xui-ctrl-mono-ghost-border);
+    }
+    .xui-btn--ghost.xui-btn--mono:hover {
+      background: var(--xui-ctrl-mono-ghost-bg-hover);
+      border-color: var(--xui-ctrl-mono-ghost-border-hover);
+    }
+
+    .xui-btn__sublabel {
+      opacity: 0.4;
+      margin-left: 4px;
+    }
+
+    .xui-btn--lg .xui-btn__icon { width: 32px; height: 32px; }
+    .xui-btn--md .xui-btn__icon,
+    .xui-btn--sm .xui-btn__icon { width: 28px; height: 28px; }
+    .xui-btn--xs .xui-btn__icon { width: 24px; height: 24px; }
+
+    /* from components/button.md — IconButton */
+    .xui-icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: inherit;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      outline: none;
+    }
+    .xui-icon-btn:focus-visible {
+      outline: 2px solid var(--xui-border-brand);
+      outline-offset: 2px;
+    }
+    .xui-icon-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .xui-icon-btn.xui-btn--md { width: 48px; height: 48px; border-radius: 8px; }
+    .xui-icon-btn.xui-btn--sm { width: 40px; height: 40px; border-radius: 4px; }
+    .xui-icon-btn.xui-btn--xs { width: 32px; height: 32px; border-radius: 4px; }
+
+    /* from components/button.md — FlexButton */
+    .xui-flex-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-family: var(--xui-font-body);
+      font-weight: 500;
+      padding: 0 4px;
+      transition: background-color 0.15s ease, color 0.15s ease;
+      outline: none;
+    }
+    .xui-flex-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .xui-flex-btn--lg { height: 32px; font-size: 14px; border-radius: 4px; }
+    .xui-flex-btn--sm { height: 22px; font-size: 12px; border-radius: 2px; }
+    .xui-flex-btn--brand { color: var(--xui-ctrl-brand-text-tertiary); }
+    .xui-flex-btn--secondary { color: var(--xui-content-secondary); }
+    .xui-flex-btn--tertiary { color: var(--xui-content-tertiary); }
+
+    /* from components/navigation.md — NavBar */
+    .xui-nav-bar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background-color: var(--xui-bg-primary);
+    }
+    .xui-nav-bar--md { height: 64px; padding: 0 16px; }
+    .xui-nav-bar--bordered {
+      border-bottom: 1px solid var(--xui-border-secondary);
+    }
+    .xui-nav-bar__start {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      flex-basis: 0;
+      gap: 8px;
+    }
+    .xui-nav-bar__center {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      flex: 2;
+      flex-basis: 0;
+      gap: 8px;
+    }
+    .xui-nav-bar__end {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1;
+      flex-basis: 0;
+      gap: 8px;
+    }
+
+    /* from components/navigation.md — TabBar */
+    .xui-tab-bar {
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      background-color: var(--xui-bg-primary);
+      border: 1px solid var(--xui-border-secondary);
+      border-radius: 8px;
+      height: 56px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .xui-tab-bar__indicator {
+      position: absolute;
+      top: 0;
+      height: 54px;
+      background-color: var(--xui-ctrl-faint-bg);
+      border: 1px solid var(--xui-border-secondary);
+      border-radius: 6px;
+      pointer-events: none;
+      z-index: 0;
+      transition: left 200ms ease-out, width 200ms ease-out;
+    }
+    .xui-tab-bar__item {
+      display: flex;
+      flex: 1;
+      flex-basis: 0;
+      min-width: 0;
+      position: relative;
+      z-index: 1;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      padding: 8px 4px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    .xui-tab-bar__item        { color: var(--xui-content-secondary); }
+    .xui-tab-bar__item--active{ color: var(--xui-content-primary); }
+    .xui-tab-bar__item:hover:not(.xui-tab-bar__item--active) {
+      background-color: var(--xui-overlay-mono);
+    }
+    .xui-tab-bar__item:focus-visible {
+      outline: 2px solid var(--xui-border-brand);
+      outline-offset: -2px;
+    }
+    .xui-tab-bar__icon-wrap { position: relative; }
+    .xui-tab-bar__badge {
+      position: absolute;
+      top: -5px; right: -10px;
+      z-index: 1;
+    }
+    .xui-tab-bar__label {
+      font-size: 10px;
+      font-weight: 400;
+    }
+    .xui-tab-bar__item--active .xui-tab-bar__label { font-weight: 500; }
+
+    /* from components/input.md */
+    .xui-input-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+    .xui-input__label {
+      color: var(--xui-content-secondary);
+      font-family: var(--xui-font-body);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 16px;
+      margin-bottom: 4px;
+    }
+    .xui-input__container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--xui-ctrl-input-bg);
+      border: 1px solid var(--xui-ctrl-input-border);
+      transition: background-color 0.15s ease, border-color 0.15s ease, outline 0.15s ease;
+    }
+    .xui-input__container:hover {
+      background: var(--xui-ctrl-input-bg-hover);
+      border-color: var(--xui-ctrl-input-border-hover);
+    }
+    .xui-input__container:focus-within {
+      background: var(--xui-ctrl-focus-bg);
+      border-color: transparent;
+      outline: 1px solid var(--xui-border-brand);
+      outline-offset: -1px;
+    }
+    .xui-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--xui-ctrl-input-text);
+      font-family: var(--xui-font-body);
+      width: 100%;
+    }
+    .xui-input::placeholder {
+      color: var(--xui-ctrl-input-placeholder);
+    }
+    .xui-input--md .xui-input__container { height: 48px; padding: 11px 12px; border-radius: 8px; }
+    .xui-input--md .xui-input { font-size: 16px; }
+    .xui-input--sm .xui-input__container { height: 40px; padding: 7px 10px; border-radius: 4px; }
+    .xui-input--sm .xui-input { font-size: 14px; }
+    .xui-input__icon-left,
+    .xui-input__icon-right {
+      flex-shrink: 0;
+      color: var(--xui-content-secondary);
+    }
+
+    /* from components/avatar.md */
+    .xui-avatar {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--xui-bg-secondary);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .xui-avatar--circle { border-radius: var(--xui-radius-avatar-circle); }
+    .xui-avatar--square { border-radius: var(--xui-radius-avatar-sm); }
+    .xui-avatar--stroke {
+      border: 1px solid var(--xui-bg-primary);
+    }
+    .xui-avatar--xl { width: 64px; height: 64px; }
+    .xui-avatar--lg { width: 56px; height: 56px; }
+    .xui-avatar--md { width: 48px; height: 48px; }
+    .xui-avatar--sm { width: 40px; height: 40px; }
+    .xui-avatar--xs { width: 32px; height: 32px; }
+    .xui-avatar__img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .xui-avatar__text {
+      color: var(--xui-content-primary);
+      font-weight: 600;
+      line-height: 1;
+      user-select: none;
+    }
+    .xui-avatar__icon {
+      color: var(--xui-content-primary);
+    }
+    .xui-avatar:hover:not(.xui-avatar--no-hover) {
+      background-color: var(--xui-overlay-mono);
+    }
+    .xui-avatar__badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1;
+    }
+    .xui-avatar[role="button"] {
+      cursor: pointer;
+    }
+    .xui-avatar[role="button"]:focus-visible {
+      outline: 2px solid var(--xui-border-brand);
+      outline-offset: 2px;
+    }
+    .xui-avatar-group {
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .xui-avatar-group__item {
+      position: relative;
+    }
+    .xui-avatar-group__item--overlap {
+      margin-left: -4px;
+    }
+
+    /* from components/badge.md */
+    .xui-badge {
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .xui-badge--xl { height: 20px; width: 20px; }
+    .xui-badge--md { height: 12px; width: 12px; }
+    .xui-badge--sm { height: 8px;  width: 8px;  }
+    .xui-badge--pill.xui-badge--xl { width: auto; padding: 0 4px; min-width: 20px; gap: 2px; }
+    .xui-badge--pill.xui-badge--md { width: auto; padding: 0 4px; min-width: 12px; gap: 2px; }
+    .xui-badge__text {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .xui-badge--xl .xui-badge__text { font-size: 12px; }
+    .xui-badge--md .xui-badge__text { font-size: 10px; }
+    .xui-badge--alert   { background: var(--xui-bg-alert-primary);       color: var(--xui-content-on-alert); }
+    .xui-badge--brand   { background: var(--xui-bg-brand-primary);        color: var(--xui-content-on-brand); }
+    .xui-badge--success { background: var(--xui-bg-success-primary);      color: var(--xui-content-on-success); }
+    .xui-badge--stroke {
+      box-shadow: 0 0 0 1px var(--xui-bg-primary);
+    }
+
+    /* from components/tag.md */
+    .xui-tag {
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      font-family: var(--xui-font-body);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: none;
+      background: transparent;
+    }
+    .xui-tag--md { height: 32px; padding: 0 12px; font-size: 16px; gap: 6px;  border-radius: var(--xui-radius-tag-sm); }
+    .xui-tag--sm { height: 24px; padding: 0  8px; font-size: 14px; gap: 4px;  border-radius: var(--xui-radius-tag-sm); }
+    .xui-tag--xs { height: 20px; padding: 0  6px; font-size: 12px; gap: 4px;  border-radius: var(--xui-radius-tag-sm); }
+    .xui-tag__icon { display: block; flex-shrink: 0; }
+    .xui-tag--md .xui-tag__icon { width: 16px; height: 16px; }
+    .xui-tag--sm .xui-tag__icon { width: 16px; height: 16px; }
+    .xui-tag--xs .xui-tag__icon { width: 16px; height: 16px; }
+    .xui-tag--primary   { background: var(--xui-bg-primary);              color: var(--xui-content-primary); }
+    .xui-tag--secondary { background: var(--xui-bg-secondary);            color: var(--xui-content-primary); }
+    .xui-tag--brand     { background: var(--xui-bg-brand-primary);        color: var(--xui-content-on-brand); }
+    .xui-tag--brand-extra { background: var(--xui-bg-brand-extra-primary); color: var(--xui-content-on-brand-extra); }
+    .xui-tag--success   { background: var(--xui-bg-success-primary);      color: var(--xui-content-on-success); }
+    .xui-tag--warning   { background: var(--xui-bg-warning-primary);      color: var(--xui-content-on-warning); }
+    .xui-tag--neutral   { background: var(--xui-bg-neutral-primary);      color: var(--xui-content-on-neutral); }
+    .xui-tag--selectable {
+      background: var(--xui-overlay-mono);
+      color: var(--xui-content-primary);
+      border: 1px solid var(--xui-border-secondary);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      outline: none;
+    }
+    .xui-tag--selectable:hover {
+      background: var(--xui-ctrl-brand-tertiary-bg-hover);
+    }
+    .xui-tag--selectable:focus-visible {
+      outline: 2px solid var(--xui-border-brand);
+      outline-offset: 2px;
+    }
+    .xui-tag--selectable.xui-tag--selected {
+      background: var(--xui-ctrl-brand-secondary-bg);
+      color: var(--xui-content-brand-primary);
+      border-color: var(--xui-border-secondary);
+    }
+
+    /* from components/tag-label.md */
+    .xui-tag-label {
+      box-sizing: border-box;
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      max-width: 100%;
+      min-width: 0;
+      gap: 0;
+      padding: 0;
+      height: 24px;
+      min-height: 24px;
+      max-height: 24px;
+      font-family: var(--xui-font-body);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18px;
+      color: var(--xui-content-primary);
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      width: fit-content;
+      overflow: hidden;
+    }
+    .xui-tag-label__icon {
+      display: block;
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+    .xui-tag-label__entity,
+    .xui-tag-label__sub {
+      display: inline-flex;
+      align-items: center;
+      align-self: stretch;
+      gap: 2px;
+      padding: 0 4px;
+      box-sizing: border-box;
+    }
+    .xui-tag-label__id {
+      display: inline-flex;
+      align-items: center;
+      align-self: stretch;
+      gap: 2px;
+      padding: 0 8px 0 6px;
+      box-sizing: border-box;
+    }
+    .xui-tag-label__entity,
+    .xui-tag-label__id {
+      flex-shrink: 0;
+    }
+    .xui-tag-label__entity-text {
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18px;
+    }
+    .xui-tag-label__entity-icon-img {
+      display: block;
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+    .xui-tag-label--entity-account .xui-tag-label__entity {
+      background: var(--xui-border-neutral);
+      color: var(--xui-content-static-dark);
+    }
+    .xui-tag-label__sub {
+      flex-shrink: 1;
+      min-width: 0;
+      background: var(--xui-content-neutral-secondary);
+      color: var(--xui-content-static-dark);
+    }
+    .xui-tag-label__sub-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 400;
+      padding: 0 2px;
+    }
+    .xui-tag-label__id {
+      font-variant-numeric: tabular-nums;
+      background: var(--xui-bg-neutral-secondary);
+      color: var(--xui-content-primary);
+    }
+    .xui-tag-label__id-series {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      min-height: 16px;
+      padding: 0 2px;
+      background: var(--xui-content-static-dark);
+      color: var(--xui-content-tertiary);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18px;
+      flex-shrink: 0;
+    }
+    .xui-tag-label__id-number {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18px;
+      color: var(--xui-content-primary);
+      flex-shrink: 0;
+    }
+    .xui-tag-label__name {
+      display: block;
+      align-self: stretch;
+      flex: 1 1 0%;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      box-sizing: border-box;
+      padding: 3px 6px;
+      line-height: 18px;
+      background: var(--xui-bg-primary);
+      color: var(--xui-content-primary);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    /* from Sections/game-card.md */
+    .xui-game-card {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      font-family: var(--xui-font-body);
+    }
+    .xui-game-card__inner {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background-color: var(--xui-bg-primary);
+      border: 1px solid var(--xui-border-secondary);
+      border-radius: var(--xui-radius-avatar-lg);
+      box-shadow: var(--xui-shadow-surface);
+    }
+    .xui-game-card__image-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background-color: var(--xui-bg-secondary);
+      border-top-left-radius: var(--xui-radius-avatar-lg);
+      border-top-right-radius: var(--xui-radius-avatar-lg);
+    }
+    .xui-game-card--lg .xui-game-card__image-wrap {
+      aspect-ratio: 366 / 206;
+    }
+    .xui-game-card--md .xui-game-card__image-wrap {
+      aspect-ratio: 1;
+    }
+    .xui-game-card--sm .xui-game-card__image-wrap {
+      aspect-ratio: 200 / 113;
+    }
+    .xui-game-card__img {
+      position: absolute;
+      inset: var(--xui-space-s);
+      width: calc(100% - 2 * var(--xui-space-s));
+      height: calc(100% - 2 * var(--xui-space-s));
+      object-fit: contain;
+      object-position: center;
+    }
+    .xui-game-card__fade {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        color-mix(in srgb, var(--xui-content-static-dark) 48%, transparent) 100%
+      );
+    }
+    .xui-game-card__tags {
+      position: absolute;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .xui-game-card__tags--top-left {
+      top: var(--xui-space-s);
+      left: var(--xui-space-s);
+      align-items: flex-start;
+      gap: var(--xui-space-xs);
+    }
+    .xui-game-card__tags--top-right {
+      top: var(--xui-space-s);
+      right: var(--xui-space-s);
+      align-items: flex-end;
+      gap: var(--xui-space-xs);
+    }
+    .xui-game-card--sm .xui-game-card__tags--top-left,
+    .xui-game-card--sm .xui-game-card__tags--top-right {
+      gap: 2px;
+    }
+    .xui-game-card__footer {
+      display: flex;
+      background-color: var(--xui-overlay-mono);
+      align-items: center;
+      gap: calc((var(--xui-space-s) + var(--xui-space-m)) / 2);
+      padding: calc((var(--xui-space-s) + var(--xui-space-m)) / 2);
+      box-sizing: border-box;
+    }
+    .xui-game-card--lg .xui-game-card__footer {
+      flex-direction: row;
+    }
+    .xui-game-card--md .xui-game-card__footer {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .xui-game-card--desktop .xui-game-card__footer {
+      gap: var(--xui-space-m);
+      padding: var(--xui-space-m);
+    }
+    .xui-game-card__text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .xui-game-card--lg:not(.xui-game-card--desktop) .xui-game-card__title {
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 500;
+    }
+    .xui-game-card--lg:not(.xui-game-card--desktop) .xui-game-card__subtitle {
+      font-size: 11px;
+      line-height: 14px;
+      font-weight: 400;
+    }
+    .xui-game-card--lg.xui-game-card--desktop .xui-game-card__title {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 500;
+    }
+    .xui-game-card--lg.xui-game-card--desktop .xui-game-card__subtitle {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 400;
+    }
+    .xui-game-card--md .xui-game-card__title {
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 500;
+    }
+    .xui-game-card--md .xui-game-card__subtitle {
+      font-size: 11px;
+      line-height: 14px;
+      font-weight: 400;
+    }
+    .xui-game-card--sm .xui-game-card__footer {
+      flex-direction: row;
+      gap: var(--xui-space-s);
+      padding: var(--xui-space-xs);
+    }
+    .xui-game-card--sm .xui-game-card__title {
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 500;
+    }
+    .xui-game-card--sm .xui-game-card__subtitle {
+      font-size: 10px;
+      line-height: 14px;
+      font-weight: 400;
+    }
+    .xui-game-card__title,
+    .xui-game-card__subtitle {
+      color: var(--xui-content-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .xui-game-card__subtitle {
+      color: var(--xui-content-tertiary);
+    }
+    .xui-game-card__btn {
+      flex-shrink: 0;
+      margin: 0;
+      font-family: inherit;
+      cursor: pointer;
+      background-color: var(--xui-ctrl-mono-secondary-bg);
+      color: var(--xui-ctrl-mono-text-secondary);
+      border: 1px solid var(--xui-ctrl-mono-secondary-border);
+      border-radius: var(--xui-radius-button);
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+    }
+    .xui-game-card--lg .xui-game-card__btn {
+      height: 32px;
+      padding: 0 20px;
+      font-size: 12px;
+      line-height: 14px;
+    }
+    .xui-game-card--md .xui-game-card__btn {
+      height: 28px;
+      padding: 0 var(--xui-space-m);
+      font-size: 11px;
+      line-height: 13px;
+    }
+    .xui-game-card--sm .xui-game-card__btn {
+      height: 24px;
+      padding: 0 12px;
+      font-size: 10px;
+      line-height: 12px;
+    }
+    .xui-game-card__btn:hover {
+      background-color: var(--xui-ctrl-mono-secondary-bg-hover);
+      border-color: var(--xui-ctrl-mono-secondary-border-hover);
+    }
+    .xui-game-card__btn:focus-visible {
+      outline: 2px solid var(--xui-border-brand);
+      outline-offset: 2px;
+    }
+    .xui-game-card__trailing {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* page-scoped per Sections/game-card.md — Tag label on cover */
+    .xui-game-card__tag-label-wrap {
+      position: absolute;
+      left: var(--xui-space-s);
+      bottom: var(--xui-space-s);
+      z-index: 1;
+      max-width: calc(100% - 2 * var(--xui-space-s));
+      display: flex;
+    }
+    .xui-game-card__tag-label .xui-tag-label__name {
+      background: color-mix(in srgb, var(--xui-content-static-dark) 64%, transparent);
+    }
+
+    /* from components/cell.md */
+    .xui-cell {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      gap: 12px;
+      padding: 8px 16px;
+      min-height: 56px;
+    }
+    .xui-cell--board {
+      background-color: var(--xui-bg-secondary);
+      border-radius: 8px;
+      border: 1px solid var(--xui-border-secondary);
+      padding: 12px 16px;
+    }
+    .xui-cell__slot {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .xui-cell__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+    }
+
+    /* from components/progress-bar.md */
+    .xui-progress-bar {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .xui-progress-bar--md { gap: 6px; }
+    .xui-progress-bar--sm { gap: 4px; }
+    .xui-progress-bar__header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .xui-progress-bar__label-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+    .xui-progress-bar__label {
+      color: var(--xui-content-secondary);
+      font-weight: 500;
+    }
+    .xui-progress-bar__status-icon { flex-shrink: 0; }
+    .xui-progress-bar__track {
+      width: 100%;
+      border-radius: 100px;
+      overflow: hidden;
+      background-color: var(--xui-ctrl-input-bg);
+    }
+    .xui-progress-bar--md .xui-progress-bar__track { height: 6px; }
+    .xui-progress-bar--sm .xui-progress-bar__track { height: 4px; }
+    .xui-progress-bar__fill {
+      height: 100%;
+      border-radius: 100px;
+    }
+    .xui-progress-bar--default .xui-progress-bar__fill { background-color: var(--xui-content-brand-primary); }
+    .xui-progress-bar--default .xui-progress-bar__status-icon { color: var(--xui-content-brand-primary); }
+    .xui-progress-bar__helper { color: var(--xui-content-secondary); }
+
+    /* from components/status.md */
+    .xui-status {
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .xui-status--sm { gap: 4px; }
+    .xui-status--md { gap: 6px; }
+    .xui-status__dot {
+      display: block;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .xui-status--sm .xui-status__dot { width: 4px; height: 4px; }
+    .xui-status--md .xui-status__dot { width: 6px; height: 6px; }
+    .xui-status__dot--default { background-color: var(--xui-content-tertiary); }
+    .xui-status__dot--success  { background-color: var(--xui-content-success-primary); }
+    .xui-status__dot--warning  { background-color: var(--xui-content-warning-primary); }
+    .xui-status__label {
+      color: var(--xui-content-primary);
+      font-weight: 400;
+      font-family: var(--xui-font-body);
+    }
+    .xui-status--sm .xui-status__label { font-size: 12px; line-height: 16px; }
+    .xui-status--md .xui-status__label { font-size: 14px; line-height: 20px; }
+    .xui-status__label--dot-color.xui-status__label--success { color: var(--xui-content-success-primary); }
+
+    /* ══════════════════════════════════════════════════════
+       Page styles — XSquad app shell, motion, layout
+       ══════════════════════════════════════════════════════ */
+    :root {
+      --page-duration-micro: 150ms;
+      --page-duration-macro: 300ms;
+      --page-duration-slow:  500ms;
+      --page-easing: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    h1, h2, h3, h4, h5 { font-family: var(--xui-font-heading-b2c); font-weight: 700; }
+    h2 { font-size: 32px; line-height: 38px; }
+    h3 { font-size: 28px; line-height: 34px; }
+    h4 { font-size: 24px; line-height: 28px; }
+    h5 { font-size: 20px; line-height: 24px; }
+
+    .app {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .app__topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .app__brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--xui-space-s);
+      text-decoration: none;
+      color: var(--xui-content-primary);
+    }
+    .app__brand-name {
+      font-family: var(--xui-font-heading-b2c);
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    .app__search { width: 100%; max-width: 520px; }
+    .app__bell-wrap { position: relative; display: inline-flex; }
+    .app__nav-wrap {
+      background: var(--xui-bg-primary);
+      border-bottom: 1px solid var(--xui-border-secondary);
+      padding: 0 var(--xui-space-xl) var(--xui-space-m);
+    }
+    .app__nav-wrap .xui-tab-bar { max-width: 760px; margin: 0 auto; }
+
+    .app__main {
+      flex: 1;
+      width: 100%;
+      padding: var(--xui-space-xl) var(--xui-space-xl) calc(var(--xui-space-xl) * 2);
+    }
+    .view { display: none; }
+    .view--active {
+      display: block;
+      animation: xui-fadeSlideUp var(--page-duration-macro) var(--page-easing) both;
+    }
+    @keyframes xui-fadeSlideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .view__section { margin-bottom: calc(var(--xui-space-xl) * 1.5); }
+    .view__section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--xui-space-m);
+      margin-bottom: var(--xui-space-m);
+      flex-wrap: wrap;
+    }
+    .view__kicker {
+      color: var(--xui-content-brand-primary);
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: var(--xui-space-xs);
+    }
+    .view__sub {
+      color: var(--xui-content-secondary);
+      font-size: 14px;
+      line-height: 20px;
+      margin-top: var(--xui-space-xs);
+    }
+
+    .panel {
+      background: var(--xui-bg-primary);
+      border: 1px solid var(--xui-border-secondary);
+      border-radius: var(--xui-radius-card);
+      box-shadow: var(--xui-shadow-surface);
+      padding: var(--xui-space-l);
+      transition: box-shadow var(--page-duration-micro) ease, transform var(--page-duration-micro) ease;
+    }
+    .panel--hover:hover {
+      box-shadow: var(--xui-shadow-surface-hover);
+      transform: translateY(-2px);
+    }
+    .panel--accent {
+      background: var(--xui-bg-brand-secondary);
+      border-color: var(--xui-border-secondary);
+    }
+    .panel--flush { padding: var(--xui-space-s); }
+
+    .home-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--xui-space-l);
+      align-items: start;
+    }
+    .stack { display: flex; flex-direction: column; gap: var(--xui-space-m); }
+    .stack--tight { gap: var(--xui-space-s); }
+    .row { display: flex; align-items: center; gap: var(--xui-space-m); }
+    .row--between { justify-content: space-between; }
+    .row--wrap { flex-wrap: wrap; }
+
+    .hero-panel {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--xui-space-l);
+      align-items: center;
+      padding: var(--xui-space-xl);
+    }
+    .hero-panel__title { margin-bottom: var(--xui-space-s); }
+    .hero-panel__meta {
+      display: flex;
+      align-items: center;
+      gap: var(--xui-space-m);
+      margin-top: var(--xui-space-m);
+      flex-wrap: wrap;
+    }
+
+    .stat-tiles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--xui-space-m);
+    }
+    .stat-tile {
+      background: var(--xui-overlay-mono);
+      border: 1px solid var(--xui-border-secondary);
+      border-radius: var(--xui-radius-avatar-lg);
+      padding: var(--xui-space-m);
+      display: flex;
+      flex-direction: column;
+      gap: var(--xui-space-xs);
+    }
+    .stat-tile__value {
+      font-family: var(--xui-font-heading-b2c);
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+    }
+    .stat-tile__value--brand { color: var(--xui-content-brand-primary); }
+    .stat-tile__label {
+      color: var(--xui-content-tertiary);
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .feed-item__meta {
+      color: var(--xui-content-tertiary);
+      font-size: 12px;
+      line-height: 16px;
+    }
+    .feed-item__title { font-weight: 600; font-size: 14px; line-height: 18px; }
+    .feed-item__text {
+      color: var(--xui-content-secondary);
+      font-size: 14px;
+      line-height: 20px;
+      margin-top: 2px;
+    }
+
+    .eco-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--xui-space-m);
+    }
+    .eco-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--xui-space-m);
+      min-height: 100%;
+    }
+    .eco-card__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--xui-radius-avatar-lg);
+      background: var(--xui-bg-brand-secondary);
+      color: var(--xui-content-brand-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .eco-card__title { font-weight: 600; font-size: 16px; line-height: 20px; }
+    .eco-card__text {
+      color: var(--xui-content-secondary);
+      font-size: 14px;
+      line-height: 20px;
+      flex: 1;
+    }
+
+    .discover-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: var(--xui-space-m);
+    }
+    .discover-featured {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--xui-space-l);
+      align-items: start;
+    }
+    .match-note {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--xui-space-s);
+      color: var(--xui-content-secondary);
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .match-note svg { flex-shrink: 0; color: var(--xui-content-brand-primary); }
+
+    .game-head {
+      display: flex;
+      gap: var(--xui-space-l);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .game-head__cover {
+      width: 96px;
+      height: 96px;
+      border-radius: var(--xui-radius-card);
+      object-fit: cover;
+      border: 1px solid var(--xui-border-secondary);
+      flex-shrink: 0;
+    }
+    .game-head__info { flex: 1; min-width: 240px; }
+    .rating-line {
+      display: flex;
+      align-items: center;
+      gap: var(--xui-space-s);
+      flex-wrap: wrap;
+    }
+    .rating-line__stars { display: inline-flex; gap: 2px; color: var(--xui-content-warning-primary); }
+    .rating-line__score {
+      font-family: var(--xui-font-heading-b2c);
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+    }
+    .rating-line__count { color: var(--xui-content-tertiary); font-size: 14px; }
+
+    .review-card { display: flex; flex-direction: column; gap: var(--xui-space-m); }
+    .review-card__head { display: flex; align-items: center; gap: var(--xui-space-m); flex-wrap: wrap; }
+    .review-card__who { flex: 1; min-width: 160px; }
+    .review-card__name { font-weight: 600; font-size: 14px; line-height: 18px; }
+    .review-card__hours { color: var(--xui-content-tertiary); font-size: 12px; line-height: 16px; }
+    .review-card__stars { display: inline-flex; gap: 2px; color: var(--xui-content-warning-primary); }
+    .review-card__text { color: var(--xui-content-secondary); font-size: 14px; line-height: 22px; }
+    .review-card__foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--xui-space-m);
+      flex-wrap: wrap;
+    }
+
+    .squads-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--xui-space-l);
+      align-items: start;
+    }
+    .chat { display: flex; flex-direction: column; gap: var(--xui-space-m); min-height: 420px; }
+    .chat__log { flex: 1; display: flex; flex-direction: column; gap: var(--xui-space-m); }
+    .chat__msg { display: flex; gap: var(--xui-space-s); align-items: flex-end; }
+    .chat__bubble {
+      background: var(--xui-overlay-mono);
+      border: 1px solid var(--xui-border-secondary);
+      border-radius: var(--xui-radius-avatar-lg);
+      padding: var(--xui-space-s) var(--xui-space-m);
+      font-size: 14px;
+      line-height: 20px;
+      max-width: 78%;
+    }
+    .chat__msg--own { justify-content: flex-end; }
+    .chat__msg--own .chat__bubble {
+      background: var(--xui-bg-brand-secondary);
+      border-color: var(--xui-border-secondary);
+    }
+    .chat__meta { color: var(--xui-content-tertiary); font-size: 11px; line-height: 14px; margin-top: 2px; }
+    .chat__composer { display: flex; gap: var(--xui-space-s); align-items: center; }
+    .chat__composer .xui-input-wrapper { flex: 1; }
+
+    .passport-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--xui-space-l);
+      align-items: start;
+    }
+    .passport-id {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--xui-space-m);
+    }
+    .achievement-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--xui-space-m);
+    }
+    .achievement {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--xui-space-s);
+      padding: var(--xui-space-m);
+      background: var(--xui-overlay-mono);
+      border: 1px solid var(--xui-border-secondary);
+      border-radius: var(--xui-radius-avatar-lg);
+      text-align: center;
+    }
+    .achievement__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--xui-radius-avatar-circle);
+      background: var(--xui-bg-brand-secondary);
+      color: var(--xui-content-brand-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .achievement--locked { opacity: 0.58; }
+    .achievement__name { font-weight: 600; font-size: 13px; line-height: 16px; }
+    .achievement__date { color: var(--xui-content-tertiary); font-size: 11px; line-height: 14px; }
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--xui-space-m);
+    }
+
+    .verified-chip { display: inline-flex; }
+
+    .app__footer {
+      background: var(--xui-bg-primary);
+      border-top: 1px solid var(--xui-border-secondary);
+      padding: var(--xui-space-xl);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--xui-space-l);
+      flex-wrap: wrap;
+    }
+    .app__footer-note { color: var(--xui-content-tertiary); font-size: 12px; line-height: 16px; }
+    .app__footer-links { display: flex; gap: var(--xui-space-l); flex-wrap: wrap; }
+    .app-link {
+      color: var(--xui-ctrl-link-primary);
+      text-decoration: none;
+      font-size: 14px;
+      line-height: 20px;
+      transition: color var(--page-duration-micro) ease;
+    }
+    .app-link:hover { color: var(--xui-ctrl-link-primary-hover); }
+
+    @media (max-width: 960px) {
+      .home-grid, .discover-featured, .squads-grid, .passport-grid { grid-template-columns: 1fr; }
+      .eco-grid, .stat-tiles { grid-template-columns: 1fr 1fr; }
+      .achievement-row { grid-template-columns: repeat(2, 1fr); }
+      .hero-panel { grid-template-columns: 1fr; }
+      .app__main { padding: var(--xui-space-l) var(--xui-space-m) calc(var(--xui-space-xl) * 2); }
+      .app__nav-wrap { padding: 0 var(--xui-space-m) var(--xui-space-m); }
+      .xui-nav-bar__center { display: none; }
+      .xui-nav-bar__start, .xui-nav-bar__end { flex: auto; }
+    }
+    @media (max-width: 600px) {
+      .eco-grid, .stat-tiles { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="app__topbar">
+    <nav class="xui-nav-bar xui-nav-bar--md xui-nav-bar--bordered" aria-label="XSquad main navigation">
+      <div class="xui-nav-bar__start">
+        <a class="app__brand" href="#" aria-label="XSquad home">
+          <!-- XSquad logo — brand asset 1c "Player Tag" from XSquad Brand.dc.html (claude.ai/design) -->
+          <svg width="40" height="40" viewBox="0 0 100 100" fill="none" role="img" aria-label="XSquad player-tag symbol">
+            <defs><linearGradient id="pt" x1="0" y1="0" x2="100" y2="100"><stop offset="0" stop-color="#80EAFF"/><stop offset="1" stop-color="#9580FF"/></linearGradient></defs>
+            <rect x="6" y="6" width="88" height="88" rx="26" fill="#0f0f18" stroke="url(#pt)" stroke-width="3.5"/>
+            <path d="M30 32 L46 50 L30 68 M70 32 L54 50 L70 68" stroke="url(#pt)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="79" cy="21" r="13" fill="#80EAFF"/>
+            <path d="M73.5 21 L77.5 25.5 L85 17.5" stroke="#08080c" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="app__brand-name">XSquad</span>
+        </a>
+      </div>
+      <div class="xui-nav-bar__center">
+        <div class="xui-input-wrapper xui-input--sm app__search">
+          <div class="xui-input__container">
+            <!-- icon_search--line -->
+            <svg class="xui-input__icon-left" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 2C14.4183 2 18 5.58172 18 10C18 11.8484 17.3711 13.5488 16.3184 14.9033L21.957 20.543L20.543 21.957L14.9033 16.3174C13.5487 17.3703 11.8486 18 10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2ZM10 4C6.68629 4 4 6.68629 4 10C4 13.3137 6.68629 16 10 16C13.3137 16 16 13.3137 16 10C16 6.68629 13.3137 4 10 4Z" fill="currentColor"/></svg>
+            <input class="xui-input" type="text" placeholder="Search games, players, and squads" aria-label="Search games, players, and squads" />
+          </div>
+        </div>
+      </div>
+      <div class="xui-nav-bar__end">
+        <button class="xui-btn xui-btn--ghost xui-btn--brand xui-btn--xs" type="button">
+          <!-- icon_wallet--line -->
+          <svg class="xui-btn__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g><path d="M17.0002 14.0004C17.0002 14.8288 16.3286 15.5004 15.5002 15.5004C14.6717 15.5004 14.0002 14.8288 14.0002 14.0004C14.0002 13.1719 14.6717 12.5004 15.5002 12.5004C16.3286 12.5004 17.0002 13.1719 17.0002 14.0004Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21.0002 19.0004C21.0002 19.5526 20.5524 20.0004 20.0002 20.0004H4.00016C3.44788 20.0004 3.00016 19.5526 3.00016 19.0004L2.99976 5.99957C2.99972 4.89493 3.89524 3.99944 4.99989 3.99951L18.0002 4.00036C18.5524 4.00036 19.0002 4.44807 19.0002 5.00036V5.99938L6.00114 5.99938C5.44858 5.99938 5.00016 6.4478 5.00016 7.00036C5.00042 7.55269 5.44875 8.00036 6.00114 8.00036H20.0002C20.5524 8.00036 21.0002 8.44807 21.0002 9.00036V19.0004ZM19.0002 10.0004L5.00016 10.0004L5.00016 18.0004L19.0002 18.0004V10.0004Z" fill="currentColor"/></g></svg>
+          <span class="xui-btn__label">$24.50</span>
+        </button>
+        <div class="app__bell-wrap">
+          <button class="xui-icon-btn xui-btn--tertiary xui-btn--mono xui-btn--sm" aria-label="Notifications" type="button">
+            <!-- icon_bell--line -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14.7988 20C14.3902 21.1643 13.2932 21.9997 11.999 22L11.7578 21.9902C10.5692 21.894 9.58031 21.0917 9.19731 20H14.7988ZM15.9472 8C15.9472 5.69259 14.4478 4.00055 11.999 4C9.55073 4.00076 8.05182 5.69252 8.05182 8V12.752L7.55573 13.3174L5.20712 16H18.7929L15.9472 12.752V8ZM17.9472 12L21.7079 16.293C22.2931 16.8835 21.9408 17.8666 21.1669 17.9873L21.0068 18H2.99328C2.11026 17.9999 1.66794 16.923 2.29211 16.293L6.05184 12V8C6.05184 4.68664 8.35049 2.00056 12 2C15.649 2.00105 17.9472 4.68694 17.9472 8V12Z" fill="currentColor"/></svg>
+          </button>
+          <span class="xui-badge xui-badge--sm xui-badge--alert xui-badge--stroke" role="status" aria-label="New notifications" style="position: absolute; top: 6px; right: 6px;"></span>
+        </div>
+        <div class="xui-avatar xui-avatar--sm xui-avatar--circle" role="button" tabindex="0" aria-label="Open your passport">
+          <img class="xui-avatar__img" src="https://i.pravatar.cc/96?img=15" alt="NovaStrike" />
+        </div>
+      </div>
+    </nav>
+    <div class="app__nav-wrap">
+      <nav role="tablist" aria-label="XSquad sections" class="xui-tab-bar" id="main-tabs">
+        <div class="xui-tab-bar__indicator" aria-hidden="true" style="left: 0; width: 20%;"></div>
+        <button role="tab" id="main-tabs-tab-home" aria-selected="true" tabindex="0" class="xui-tab-bar__item xui-tab-bar__item--active" data-view="home">
+          <div class="xui-tab-bar__icon-wrap">
+            <!-- icon_home--line -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16 18.999H19V9.92672L12 5.20795L5 9.92672V19H8V11.9199H16V18.999ZM21 19.9883C21 20.5468 20.5523 21 20 21L14 20.999V13.9199H10V21H4L3.89746 20.9951C3.39333 20.9432 3.00001 20.5118 3 19.9883V9.40523C3 9.06709 3.16713 8.75101 3.44531 8.56343L11.4453 3.16986C11.7812 2.94338 12.2188 2.94338 12.5547 3.16986L20.5547 8.56343C20.8329 8.75101 21 9.06709 21 9.40523V19.9883Z" fill="currentColor"/></svg>
+          </div>
+          <span class="xui-tab-bar__label">Home</span>
+        </button>
+        <button role="tab" id="main-tabs-tab-discover" aria-selected="false" tabindex="-1" class="xui-tab-bar__item" data-view="discover">
+          <div class="xui-tab-bar__icon-wrap">
+            <!-- icon_hot--line -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.6075 2.98502C11.518 2.53249 11.9865 2.1144 12.3829 2.35019C16.725 4.93252 19.0842 9.07483 16.7829 13.2172L20.2829 13.223C20.2829 13.223 20.2829 13.935 20.2829 14.7406C20.2829 16.5909 19.4394 18.3658 17.9392 19.6742L17.6521 19.9125C16.1845 21.0713 14.2711 21.7171 12.2819 21.7172V19.7172C13.9551 19.7171 15.5141 19.1348 16.6247 18.1664L16.8249 17.9838C17.6597 17.1805 18.1368 16.2069 18.2536 15.2191L13.3874 15.2113L15.0349 12.2455C15.9313 10.6316 15.8467 9.10489 15.0739 7.66149C14.7037 6.97006 14.1637 6.28587 13.4734 5.63903C13.1327 6.84224 12.4639 7.78833 11.7526 8.51793C10.9968 9.29322 10.1389 9.87952 9.45968 10.3119C8.85767 10.6951 8.50877 10.8978 8.27316 11.056L8.07003 11.2045C7.20678 11.9126 6.64739 12.7966 6.41183 13.7181C6.17776 14.6342 6.26161 15.5924 6.66671 16.4838C7.07453 17.3809 7.80372 18.1963 8.80636 18.7904C9.81104 19.3856 11.0228 19.717 12.2819 19.7172V21.7172L11.9821 21.7123C10.584 21.6664 9.22376 21.3011 8.0378 20.6537L7.78683 20.5111C6.54374 19.7745 5.56567 18.7484 4.96163 17.5521L4.8464 17.3109C4.29275 16.0927 4.14401 14.7652 4.41476 13.4798L4.47433 13.223C4.80129 11.9438 5.53413 10.7719 6.58663 9.84118L6.80148 9.65856C8.10486 8.58893 12.407 7.02884 11.6075 2.98502Z" fill="currentColor"/></svg>
+          </div>
+          <span class="xui-tab-bar__label">Discover</span>
+        </button>
+        <button role="tab" id="main-tabs-tab-reviews" aria-selected="false" tabindex="-1" class="xui-tab-bar__item" data-view="reviews">
+          <div class="xui-tab-bar__icon-wrap">
+            <!-- icon_chat-text--line -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g><path d="M16 11.5H8V9.5H16V11.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M20 3C21.1046 3 22 3.89543 22 5V16C22 17.1046 21.1046 18 20 18H7L3.70703 21.293C3.07709 21.9228 2.00012 21.4767 2 20.5859V5C2 3.89543 2.89543 3 4 3H20ZM4 18.1846L6.17969 16H20V5H4V18.1846Z" fill="currentColor"/></g></svg>
+          </div>
+          <span class="xui-tab-bar__label">Reviews</span>
+        </button>
+        <button role="tab" id="main-tabs-tab-squads" aria-selected="false" tabindex="-1" class="xui-tab-bar__item" data-view="squads">
+          <div class="xui-tab-bar__icon-wrap">
+            <!-- icon_users--line -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 14C8.20914 14 10 15.7909 10 18V21H8V18C8 16.8954 7.10457 16 6 16C4.89543 16 4 16.8954 4 18V21H2V18C2 15.7909 3.79086 14 6 14ZM15 21H13V18C13 16.8954 12.1046 16 11 16V14C13.2091 14 15 15.7909 15 18V21ZM20 12H22V14H20V16H18V14H16V12H18V10H20V12ZM6 5C8.20914 5 10 6.79086 10 9C10 11.2091 8.20914 13 6 13C3.79086 13 2 11.2091 2 9C2 6.79086 3.79086 5 6 5ZM11 5C13.2091 5 15 6.79086 15 9C15 11.2091 13.2091 13 11 13V11C12.1046 11 13 10.1046 13 9C13 7.89543 12.1046 7 11 7V5ZM6 7C4.89543 7 4 7.89543 4 9C4 10.1046 4.89543 11 6 11C7.10457 11 8 10.1046 8 9C8 7.89543 7.10457 7 6 7Z" fill="currentColor"/></svg>
+            <div class="xui-tab-bar__badge"><span class="xui-badge xui-badge--md xui-badge--alert xui-badge--pill" role="status" aria-label="3 unread messages"><span class="xui-badge__text">3</span></span></div>
+          </div>
+          <span class="xui-tab-bar__label">Squads</span>
+        </button>
+        <button role="tab" id="main-tabs-tab-passport" aria-selected="false" tabindex="-1" class="xui-tab-bar__item" data-view="passport">
+          <div class="xui-tab-bar__icon-wrap">
+            <!-- icon_user--line -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g><path d="M12.0002 14.8154C16.0051 14.8154 19.5091 16.9562 21.4329 20.1553L19.718 21.1846C18.1441 18.567 15.277 16.8154 12.0002 16.8154C8.72329 16.8154 5.8554 18.5668 4.28149 21.1846L2.56665 20.1553C4.49036 16.956 7.99522 14.8154 12.0002 14.8154Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0002 2.81543C14.7617 2.81543 17.0002 5.05401 17.0002 7.81543C17.0002 10.5769 14.7617 12.8154 12.0002 12.8154C9.23882 12.8154 7.00024 10.5769 7.00024 7.81543C7.00024 5.05401 9.23882 2.81543 12.0002 2.81543ZM12.0002 4.81543C10.3434 4.81543 9.00024 6.15858 9.00024 7.81543C9.00024 9.47228 10.3434 10.8154 12.0002 10.8154C13.6571 10.8154 15.0002 9.47228 15.0002 7.81543C15.0002 6.15858 13.6571 4.81543 12.0002 4.81543Z" fill="currentColor"/></g></svg>
+          </div>
+          <span class="xui-tab-bar__label">Passport</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app__main">
+
+    <!-- ══════════ VIEW: HOME ══════════ -->
+    <section class="view view--active" id="view-home" role="tabpanel" aria-labelledby="main-tabs-tab-home">
+      <div class="view__section">
+        <div class="panel panel--accent hero-panel">
+          <div>
+            <span class="view__kicker">Season 12 is live</span>
+            <h3 class="hero-panel__title">Welcome back, Nova</h3>
+            <p class="view__sub">Your squad played 3 games while you were away. Catch up, drop a verified review, and keep your streak going.</p>
+            <div class="hero-panel__meta">
+              <a class="xui-btn xui-btn--primary xui-btn--brand xui-btn--sm xui-btn--spread" href="#" data-goto="discover">
+                <span class="xui-btn__label">See tonight's picks</span>
+                <!-- icon_arrow-right--line -->
+                <svg class="xui-btn__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.9983 19.0824L18.0706 13.0111L2.99927 13.0111L2.99927 11.0111L18.0706 11.0111L11.9993 4.93985L13.4133 3.52579L21.1915 11.304C21.5821 11.6945 21.5821 12.3277 21.1915 12.7182L13.4124 20.4965L11.9983 19.0824Z" fill="currentColor"/></svg>
+              </a>
+              <div class="xui-status xui-status--md" role="status" aria-label="success: 12 friends online">
+                <span class="xui-status__dot xui-status__dot--success" aria-hidden="true"></span>
+                <span class="xui-status__label">12 friends online</span>
+              </div>
+            </div>
+          </div>
+          <div class="stack">
+            <div class="xui-progress-bar xui-progress-bar--md xui-progress-bar--default" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100" aria-label="Level progress">
+              <div class="xui-progress-bar__header">
+                <div class="xui-progress-bar__label-group">
+                  <span class="xui-progress-bar__label">Level 42</span>
+                </div>
+              </div>
+              <div class="xui-progress-bar__track">
+                <div class="xui-progress-bar__fill" style="width: 71%;"></div>
+              </div>
+              <span class="xui-progress-bar__helper">2,140 / 3,000 XP to level 43</span>
+            </div>
+            <div class="stat-tiles">
+              <div class="stat-tile">
+                <span class="stat-tile__value">128</span>
+                <span class="stat-tile__label">Games in library</span>
+              </div>
+              <div class="stat-tile">
+                <span class="stat-tile__value stat-tile__value--brand">36</span>
+                <span class="stat-tile__label">Verified reviews</span>
+              </div>
+              <div class="stat-tile">
+                <span class="stat-tile__value">54</span>
+                <span class="stat-tile__label">Squadmates</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-grid">
+        <div class="view__section">
+          <div class="view__section-head">
+            <h5>Squad activity</h5>
+            <button class="xui-flex-btn xui-flex-btn--brand xui-flex-btn--lg" type="button">See all</button>
+          </div>
+          <div class="panel panel--flush stack--tight stack">
+            <div class="xui-cell">
+              <div class="xui-cell__slot">
+                <div class="xui-avatar xui-avatar--md xui-avatar--circle">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/96?img=32" alt="KaiRunner" />
+                </div>
+              </div>
+              <div class="xui-cell__content">
+                <span class="feed-item__title">KaiRunner reviewed Cyberstrike</span>
+                <span class="feed-item__text">"Patch 2.4 finally fixed netcode. Ranked feels fair again — squad up and grind."</span>
+                <span class="feed-item__meta">2 hours ago · 47 players found it helpful</span>
+              </div>
+              <div class="xui-cell__slot">
+                <span class="xui-tag xui-tag--xs xui-tag--success">
+                  <svg class="xui-tag__icon" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Verified
+                </span>
+              </div>
+            </div>
+            <div class="xui-cell">
+              <div class="xui-cell__slot">
+                <div class="xui-avatar xui-avatar--md xui-avatar--circle">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/96?img=44" alt="MiraFrost" />
+                </div>
+              </div>
+              <div class="xui-cell__content">
+                <span class="feed-item__title">MiraFrost reached level 87 in Starfall Odyssey</span>
+                <span class="feed-item__text">Top 3% of all pilots this season.</span>
+                <span class="feed-item__meta">4 hours ago</span>
+              </div>
+              <div class="xui-cell__slot">
+                <button class="xui-flex-btn xui-flex-btn--secondary xui-flex-btn--lg" type="button" data-cheer>
+                  <!-- icon_heart--line -->
+                  <svg class="xui-flex-btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13.5919 5.4455C15.5154 3.51826 18.6344 3.51808 20.5577 5.4455C22.4811 7.37311 22.481 10.4993 20.5577 12.4269L12.7107 20.291C12.3201 20.6825 11.6859 20.6826 11.2952 20.2913L3.44251 12.4269C1.51922 10.4993 1.51911 7.37311 3.44251 5.4455C5.36585 3.51808 8.48487 3.51825 10.4083 5.4455L11.9991 7.04023L13.5919 5.4455ZM19.1417 6.85859C17.9997 5.71406 16.149 5.71404 15.007 6.85859L11.9991 9.87128L8.99329 6.85859C7.85124 5.71404 6.00059 5.71406 4.85852 6.85859C3.7143 8.00531 3.71382 9.86683 4.85754 11.0139L12.0021 18.1682L19.1417 11.0148C20.2862 9.86787 20.2862 8.00556 19.1417 6.85859Z" fill="currentColor"/></svg>
+                  <span data-cheer-count>18</span>
+                </button>
+              </div>
+            </div>
+            <div class="xui-cell">
+              <div class="xui-cell__slot">
+                <div class="xui-avatar xui-avatar--md xui-avatar--square" role="img" aria-label="Night Raiders squad">
+                  <span class="xui-avatar__text">NR</span>
+                </div>
+              </div>
+              <div class="xui-cell__content">
+                <span class="feed-item__title">Night Raiders are looking for 2 more</span>
+                <span class="feed-item__text">Ranked grind tonight at 21:00 — flex roles welcome.</span>
+                <span class="feed-item__meta">Cyberstrike · 6 of 8 slots filled</span>
+              </div>
+              <div class="xui-cell__slot">
+                <button class="xui-btn xui-btn--secondary xui-btn--brand xui-btn--xs" type="button">
+                  <span class="xui-btn__label">Join</span>
+                </button>
+              </div>
+            </div>
+            <div class="xui-cell">
+              <div class="xui-cell__slot">
+                <div class="xui-avatar xui-avatar--md xui-avatar--circle">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/96?img=68" alt="RikoBlaze" />
+                </div>
+              </div>
+              <div class="xui-cell__content">
+                <span class="feed-item__title">RikoBlaze tipped a creator with Xsolla Wallet</span>
+                <span class="feed-item__text">Supported GuideSmith's "Cyberstrike movement bible" with $5.</span>
+                <span class="feed-item__meta">Yesterday</span>
+              </div>
+              <div class="xui-cell__slot">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color: var(--xui-content-tertiary);"><path d="M15.7807 11.3036C16.1712 11.6942 16.1712 12.3273 15.7807 12.7178L8.78076 19.7178L7.3667 18.3037L13.6597 12.0107L7.3667 5.71777L8.78076 4.30371L15.7807 11.3036Z" fill="currentColor"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="view__section">
+          <div class="view__section-head">
+            <h5>Friends online</h5>
+          </div>
+          <div class="panel panel--flush stack stack--tight">
+            <div class="xui-cell">
+              <div class="xui-cell__slot">
+                <div class="xui-avatar xui-avatar--sm xui-avatar--circle">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/96?img=32" alt="KaiRunner" />
+                </div>
+              </div>
+              <div class="xui-cell__content">
+                <span class="feed-item__title">KaiRunner</span>
+                <div class="xui-status xui-status--sm" role="status" aria-label="success: In Cyberstrike">
+                  <span class="xui-status__dot xui-status__dot--success" aria-hidden="true"></span>
+                  <span class="xui-status__label xui-status__label--dot-color xui-status__label--success">In Cyberstrike</span>
+                </div>
+              </div>
+              <div class="xui-cell__slot">
+                <button class="xui-btn xui-btn--secondary xui-btn--brand xui-btn--xs" type="button">
+                  <span class="xui-btn__label">Invite</span>
+                </button>
+              </div>
+            </div>
+            <div class="xui-cell">
+              <div class="xui-cell__slot">
+                <div class="xui-avatar xui-avatar--sm xui-avatar--circle">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/96?img=44" alt="MiraFrost" />
+                </div>
+              </div>
+              <div class="xui-cell__content">
+                <span class="feed-item__title">MiraFrost</span>
+                <div class="xui-status xui-status--sm" role="status" aria-label="success: In Starfall Odyssey">
+                  <span class="xui-status__dot xui-status__dot--success" aria-hidden="true"></span>
+                  <span class="xui-status__label xui-status__label--dot-color xui-status__label--success">In Starfall Odyssey</span>
+                </div>
+              </div>
+              <div class="xui-cell__slot">
+                <button class="xui-btn xui-btn--secondary xui-btn--brand xui-btn--xs" type="button">
+                  <span class="xui-btn__label">Invite</span>
+                </button>
+              </div>
+            </div>
+            <div class="xui-cell">
+              <div class="xui-cell__slot">
+                <div class="xui-avatar xui-avatar--sm xui-avatar--circle">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/96?img=5" alt="Vex" />
+                </div>
+              </div>
+              <div class="xui-cell__content">
+                <span class="feed-item__title">Vex</span>
+                <div class="xui-status xui-status--sm" role="status" aria-label="warning: Away">
+                  <span class="xui-status__dot xui-status__dot--warning" aria-hidden="true"></span>
+                  <span class="xui-status__label">Away</span>
+                </div>
+              </div>
+              <div class="xui-cell__slot">
+                <button class="xui-flex-btn xui-flex-btn--tertiary xui-flex-btn--lg" type="button">Message</button>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: var(--xui-space-m);">
+            <div class="panel">
+              <div class="stack stack--tight">
+                <span class="feed-item__title">Weekly quest</span>
+                <p class="feed-item__text">Write 2 verified reviews to earn the Critic's Eye badge.</p>
+                <div class="xui-progress-bar xui-progress-bar--sm xui-progress-bar--default" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Weekly quest progress">
+                  <div class="xui-progress-bar__track">
+                    <div class="xui-progress-bar__fill" style="width: 50%;"></div>
+                  </div>
+                  <span class="xui-progress-bar__helper">1 of 2 reviews done</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="view__section">
+        <div class="view__section-head">
+          <div>
+            <h5>More from Xsolla</h5>
+            <p class="view__sub">XSquad is the front door to the whole ecosystem — pick the tool built for you.</p>
+          </div>
+        </div>
+        <div class="eco-grid">
+          <div class="panel panel--hover eco-card">
+            <span class="eco-card__icon">
+              <!-- icon_funnel_chart--line -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.7339 3.03709C21.371 2.8601 22.0013 3.33876 22.0015 3.99998V20C22.0013 20.6612 21.371 21.1399 20.7339 20.9629L2.73389 15.9629C2.30118 15.8427 2.00161 15.449 2.00146 15V8.99998C2.0016 8.5509 2.30117 8.1573 2.73389 8.03709L20.7339 3.03709ZM16.0015 6.42576V17.5722L20.0015 18.6836V5.31541L16.0015 6.42576ZM10.0015 8.09275V15.9053L14.0015 17.0166V6.98143L10.0015 8.09275ZM4.00146 9.75975V14.2392L8.00146 15.3496V8.64842L4.00146 9.75975Z" fill="currentColor"/></svg>
+            </span>
+            <div>
+              <div class="eco-card__title">For developers</div>
+              <p class="eco-card__text">See what verified players say about every release with sentiment dashboards in Publisher Account.</p>
+            </div>
+            <a class="xui-btn xui-btn--secondary xui-btn--brand xui-btn--sm xui-btn--spread" href="#">
+              <span class="xui-btn__label">Open Publisher Account</span>
+              <svg class="xui-btn__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.9983 19.0824L18.0706 13.0111L2.99927 13.0111L2.99927 11.0111L18.0706 11.0111L11.9993 4.93985L13.4133 3.52579L21.1915 11.304C21.5821 11.6945 21.5821 12.3277 21.1915 12.7182L13.4124 20.4965L11.9983 19.0824Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+          <div class="panel panel--hover eco-card">
+            <span class="eco-card__icon">
+              <!-- icon_megaphone--line -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.6172 2.07897C21.2759 1.8045 22.002 2.28823 22.002 3.00182V21.0018C22.0015 21.715 21.2756 22.1989 20.6172 21.9247L10.002 17.5008V19.0018C10.0016 20.6584 8.65859 22.0018 7.00195 22.0018C5.34532 22.0018 4.00231 20.6584 4.00195 19.0018V16.0008C2.788 15.0887 2.00217 13.6371 2.00195 12.0018C2.00195 9.2404 4.24053 7.00182 7.00195 7.00182H8.80273L20.6172 2.07897ZM7.00195 9.00182C5.3451 9.00182 4.00195 10.345 4.00195 12.0018C4.00224 13.3065 4.8367 14.4133 6 14.826V18.0008H6.00195V19.0018C6.00231 19.5538 6.44989 20.0018 7.00195 20.0018C7.55402 20.0018 8.0016 19.5538 8.00195 19.0018V17.0018H8V9.00182H7.00195ZM10 8.66881V15.3339L20.002 19.5018V4.50084L10 8.66881Z" fill="currentColor"/></svg>
+            </span>
+            <div>
+              <div class="eco-card__title">For creators</div>
+              <p class="eco-card__text">Grow your community here, then turn it into income with Xsolla Partner Network campaigns.</p>
+            </div>
+            <a class="xui-btn xui-btn--secondary xui-btn--brand xui-btn--sm xui-btn--spread" href="#">
+              <span class="xui-btn__label">Join Partner Network</span>
+              <svg class="xui-btn__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.9983 19.0824L18.0706 13.0111L2.99927 13.0111L2.99927 11.0111L18.0706 11.0111L11.9993 4.93985L13.4133 3.52579L21.1915 11.304C21.5821 11.6945 21.5821 12.3277 21.1915 12.7182L13.4124 20.4965L11.9983 19.0824Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+          <div class="panel panel--hover eco-card">
+            <span class="eco-card__icon">
+              <!-- icon_wallet--line -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><g><path d="M17.0002 14.0004C17.0002 14.8288 16.3286 15.5004 15.5002 15.5004C14.6717 15.5004 14.0002 14.8288 14.0002 14.0004C14.0002 13.1719 14.6717 12.5004 15.5002 12.5004C16.3286 12.5004 17.0002 13.1719 17.0002 14.0004Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21.0002 19.0004C21.0002 19.5526 20.5524 20.0004 20.0002 20.0004H4.00016C3.44788 20.0004 3.00016 19.5526 3.00016 19.0004L2.99976 5.99957C2.99972 4.89493 3.89524 3.99944 4.99989 3.99951L18.0002 4.00036C18.5524 4.00036 19.0002 4.44807 19.0002 5.00036V5.99938L6.00114 5.99938C5.44858 5.99938 5.00016 6.4478 5.00016 7.00036C5.00042 7.55269 5.44875 8.00036 6.00114 8.00036H20.0002C20.5524 8.00036 21.0002 8.44807 21.0002 9.00036V19.0004ZM19.0002 10.0004L5.00016 10.0004L5.00016 18.0004L19.0002 18.0004V10.0004Z" fill="currentColor"/></g></svg>
+            </span>
+            <div>
+              <div class="eco-card__title">Xsolla Wallet</div>
+              <p class="eco-card__text">One balance for purchases, tips, and creator payouts — built into every corner of XSquad.</p>
+            </div>
+            <a class="xui-btn xui-btn--secondary xui-btn--brand xui-btn--sm xui-btn--spread" href="#">
+              <span class="xui-btn__label">Set up Wallet</span>
+              <svg class="xui-btn__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.9983 19.0824L18.0706 13.0111L2.99927 13.0111L2.99927 11.0111L18.0706 11.0111L11.9993 4.93985L13.4133 3.52579L21.1915 11.304C21.5821 11.6945 21.5821 12.3277 21.1915 12.7182L13.4124 20.4965L11.9983 19.0824Z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ VIEW: DISCOVER ══════════ -->
+    <section class="view" id="view-discover" role="tabpanel" aria-labelledby="main-tabs-tab-discover" hidden>
+      <div class="view__section">
+        <div class="view__section-head">
+          <div>
+            <span class="view__kicker">Smart discovery</span>
+            <h4>Picked for you</h4>
+            <p class="view__sub">XSquad learns from your library, progress, reviews, and squad activity — then suggests what to play next.</p>
+          </div>
+          <button class="xui-btn xui-btn--ghost xui-btn--brand xui-btn--sm" type="button">
+            <span class="xui-btn__label">Refresh picks</span>
+          </button>
+        </div>
+        <div class="row row--wrap" style="margin-bottom: var(--xui-space-l); gap: var(--xui-space-s);">
+          <button class="xui-tag xui-tag--sm xui-tag--selectable xui-tag--selected" type="button" aria-pressed="true" data-filter>All</button>
+          <button class="xui-tag xui-tag--sm xui-tag--selectable" type="button" aria-pressed="false" data-filter>Shooter</button>
+          <button class="xui-tag xui-tag--sm xui-tag--selectable" type="button" aria-pressed="false" data-filter>RPG</button>
+          <button class="xui-tag xui-tag--sm xui-tag--selectable" type="button" aria-pressed="false" data-filter>Strategy</button>
+          <button class="xui-tag xui-tag--sm xui-tag--selectable" type="button" aria-pressed="false" data-filter>Co-op</button>
+          <button class="xui-tag xui-tag--sm xui-tag--selectable" type="button" aria-pressed="false" data-filter>Indie</button>
+        </div>
+        <div class="discover-featured">
+          <div class="xui-game-card xui-game-card--lg xui-game-card--desktop">
+            <div class="xui-game-card__inner">
+              <div class="xui-game-card__image-wrap">
+                <img class="xui-game-card__img" src="https://picsum.photos/seed/xsq-starfall/732/412" alt="Starfall Odyssey key art" />
+                <div class="xui-game-card__fade" aria-hidden="true"></div>
+                <div class="xui-game-card__tags xui-game-card__tags--top-left">
+                  <span class="xui-tag xui-tag--sm xui-tag--brand">96% match</span>
+                </div>
+                <div class="xui-game-card__tags xui-game-card__tags--top-right">
+                  <span class="xui-tag xui-tag--xs xui-tag--secondary">3 friends play</span>
+                </div>
+                <div class="xui-game-card__tag-label-wrap">
+                  <div class="xui-tag-label xui-game-card__tag-label" role="group" aria-label="ID XSQ-204, Starfall Odyssey">
+                    <span class="xui-tag-label__id"><span class="xui-tag-label__id-series">XSQ</span><span class="xui-tag-label__id-number">-204</span></span>
+                    <span class="xui-tag-label__name">Starfall Odyssey</span>
+                  </div>
+                </div>
+              </div>
+              <div class="xui-game-card__footer">
+                <div class="xui-game-card__text">
+                  <span class="xui-game-card__title">Starfall Odyssey</span>
+                  <span class="xui-game-card__subtitle">Space RPG · Co-op · Cross-play</span>
+                </div>
+                <button type="button" class="xui-game-card__btn">Play now</button>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="stack">
+              <h5>Why this pick</h5>
+              <div class="match-note">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM11 12.5859L9.08203 10.668L7.66797 12.082L11 15.4141L16.707 9.70703L15.293 8.29297L11 12.5859Z" fill="currentColor"/></svg>
+                <span>You finished 3 space RPGs this year and rated them 4 stars or higher.</span>
+              </div>
+              <div class="match-note">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM11 12.5859L9.08203 10.668L7.66797 12.082L11 15.4141L16.707 9.70703L15.293 8.29297L11 12.5859Z" fill="currentColor"/></svg>
+                <span>MiraFrost and 2 more squadmates play it weekly.</span>
+              </div>
+              <div class="match-note">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM11 12.5859L9.08203 10.668L7.66797 12.082L11 15.4141L16.707 9.70703L15.293 8.29297L11 12.5859Z" fill="currentColor"/></svg>
+                <span>Verified players rate its co-op 4.8 — the highest in your genres.</span>
+              </div>
+              <a class="xui-btn xui-btn--primary xui-btn--brand xui-btn--md xui-btn--spread xui-btn--full-width" href="#">
+                <span class="xui-btn__label">Buy with Xsolla Wallet</span>
+                <svg class="xui-btn__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.9983 19.0824L18.0706 13.0111L2.99927 13.0111L2.99927 11.0111L18.0706 11.0111L11.9993 4.93985L13.4133 3.52579L21.1915 11.304C21.5821 11.6945 21.5821 12.3277 21.1915 12.7182L13.4124 20.4965L11.9983 19.0824Z" fill="currentColor"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="view__section">
+        <div class="view__section-head">
+          <h5>More matches</h5>
+          <button class="xui-flex-btn xui-flex-btn--brand xui-flex-btn--lg" type="button">See all</button>
+        </div>
+        <div class="discover-grid">
+          <div class="xui-game-card xui-game-card--md">
+            <div class="xui-game-card__inner">
+              <div class="xui-game-card__image-wrap">
+                <img class="xui-game-card__img" src="https://picsum.photos/seed/xsq-ember/500/500" alt="Emberfall key art" />
+                <div class="xui-game-card__fade" aria-hidden="true"></div>
+                <div class="xui-game-card__tags xui-game-card__tags--top-left">
+                  <span class="xui-tag xui-tag--xs xui-tag--brand">93% match</span>
+                </div>
+                <div class="xui-game-card__tag-label-wrap">
+                  <div class="xui-tag-label xui-game-card__tag-label" role="group" aria-label="ID XSQ-118, Emberfall">
+                    <span class="xui-tag-label__id"><span class="xui-tag-label__id-series">XSQ</span><span class="xui-tag-label__id-number">-118</span></span>
+                    <span class="xui-tag-label__name">Emberfall</span>
+                  </div>
+                </div>
+              </div>
+              <div class="xui-game-card__footer">
+                <div class="xui-game-card__text">
+                  <span class="xui-game-card__title">Emberfall</span>
+                  <span class="xui-game-card__subtitle">Action RPG · Solo</span>
+                </div>
+                <button type="button" class="xui-game-card__btn">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="xui-game-card xui-game-card--md">
+            <div class="xui-game-card__inner">
+              <div class="xui-game-card__image-wrap">
+                <img class="xui-game-card__img" src="https://picsum.photos/seed/xsq-tactic/500/500" alt="Ironline Tactics key art" />
+                <div class="xui-game-card__fade" aria-hidden="true"></div>
+                <div class="xui-game-card__tags xui-game-card__tags--top-left">
+                  <span class="xui-tag xui-tag--xs xui-tag--brand">91% match</span>
+                </div>
+                <div class="xui-game-card__tag-label-wrap">
+                  <div class="xui-tag-label xui-game-card__tag-label" role="group" aria-label="ID XSQ-097, Ironline Tactics">
+                    <span class="xui-tag-label__id"><span class="xui-tag-label__id-series">XSQ</span><span class="xui-tag-label__id-number">-097</span></span>
+                    <span class="xui-tag-label__name">Ironline Tactics</span>
+                  </div>
+                </div>
+              </div>
+              <div class="xui-game-card__footer">
+                <div class="xui-game-card__text">
+                  <span class="xui-game-card__title">Ironline Tactics</span>
+                  <span class="xui-game-card__subtitle">Strategy · PvP</span>
+                </div>
+                <button type="button" class="xui-game-card__btn">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="xui-game-card xui-game-card--md">
+            <div class="xui-game-card__inner">
+              <div class="xui-game-card__image-wrap">
+                <img class="xui-game-card__img" src="https://picsum.photos/seed/xsq-drift/500/500" alt="Neon Drift key art" />
+                <div class="xui-game-card__fade" aria-hidden="true"></div>
+                <div class="xui-game-card__tags xui-game-card__tags--top-left">
+                  <span class="xui-tag xui-tag--xs xui-tag--brand">89% match</span>
+                </div>
+                <div class="xui-game-card__tags xui-game-card__tags--top-right">
+                  <span class="xui-tag xui-tag--xs xui-tag--brand-extra">New</span>
+                </div>
+                <div class="xui-game-card__tag-label-wrap">
+                  <div class="xui-tag-label xui-game-card__tag-label" role="group" aria-label="ID XSQ-233, Neon Drift">
+                    <span class="xui-tag-label__id"><span class="xui-tag-label__id-series">XSQ</span><span class="xui-tag-label__id-number">-233</span></span>
+                    <span class="xui-tag-label__name">Neon Drift</span>
+                  </div>
+                </div>
+              </div>
+              <div class="xui-game-card__footer">
+                <div class="xui-game-card__text">
+                  <span class="xui-game-card__title">Neon Drift</span>
+                  <span class="xui-game-card__subtitle">Racing · Arcade</span>
+                </div>
+                <button type="button" class="xui-game-card__btn">View</button>
+              </div>
+            </div>
+          </div>
+          <div class="xui-game-card xui-game-card--md">
+            <div class="xui-game-card__inner">
+              <div class="xui-game-card__image-wrap">
+                <img class="xui-game-card__img" src="https://picsum.photos/seed/xsq-keep/500/500" alt="Last Keep key art" />
+                <div class="xui-game-card__fade" aria-hidden="true"></div>
+                <div class="xui-game-card__tags xui-game-card__tags--top-left">
+                  <span class="xui-tag xui-tag--xs xui-tag--brand">87% match</span>
+                </div>
+                <div class="xui-game-card__tag-label-wrap">
+                  <div class="xui-tag-label xui-game-card__tag-label" role="group" aria-label="ID XSQ-151, Last Keep">
+                    <span class="xui-tag-label__id"><span class="xui-tag-label__id-series">XSQ</span><span class="xui-tag-label__id-number">-151</span></span>
+                    <span class="xui-tag-label__name">Last Keep</span>
+                  </div>
+                </div>
+              </div>
+              <div class="xui-game-card__footer">
+                <div class="xui-game-card__text">
+                  <span class="xui-game-card__title">Last Keep</span>
+                  <span class="xui-game-card__subtitle">Survival · Co-op</span>
+                </div>
+                <button type="button" class="xui-game-card__btn">View</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ VIEW: REVIEWS (game page) ══════════ -->
+    <section class="view" id="view-reviews" role="tabpanel" aria-labelledby="main-tabs-tab-reviews" hidden>
+      <div class="view__section">
+        <div class="panel game-head">
+          <img class="game-head__cover" src="https://picsum.photos/seed/xsq-cyber/240/240" alt="Cyberstrike cover art" />
+          <div class="game-head__info">
+            <h4>Cyberstrike</h4>
+            <div class="row row--wrap" style="gap: var(--xui-space-s); margin-top: var(--xui-space-s);">
+              <span class="xui-tag xui-tag--xs xui-tag--neutral">Shooter</span>
+              <span class="xui-tag xui-tag--xs xui-tag--neutral">Co-op</span>
+              <span class="xui-tag xui-tag--xs xui-tag--neutral">Cross-play</span>
+            </div>
+            <div class="rating-line" style="margin-top: var(--xui-space-m);">
+              <span class="rating-line__score">4.6</span>
+              <span class="rating-line__stars" aria-label="Rated 4.6 out of 5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.0801 2.40132C11.426 1.59206 12.574 1.59206 12.9199 2.40132L15.4112 8.23237L21.7022 8.82026C22.5738 8.90172 22.927 9.98418 22.2715 10.5644L17.5196 14.7714L18.9082 20.9785C19.1 21.8356 18.1727 22.5056 17.419 22.0546L12 18.8125L6.58108 22.0546L6.43753 22.1269C5.71543 22.4212 4.91213 21.7819 5.09182 20.9785L6.48049 14.7714L1.72854 10.5644C1.07308 9.98418 1.4263 8.90172 2.29788 8.82026L8.58889 8.23237L11.0801 2.40132Z" fill="currentColor"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.0801 2.40132C11.426 1.59206 12.574 1.59206 12.9199 2.40132L15.4112 8.23237L21.7022 8.82026C22.5738 8.90172 22.927 9.98418 22.2715 10.5644L17.5196 14.7714L18.9082 20.9785C19.1 21.8356 18.1727 22.5056 17.419 22.0546L12 18.8125L6.58108 22.0546L6.43753 22.1269C5.71543 22.4212 4.91213 21.7819 5.09182 20.9785L6.48049 14.7714L1.72854 10.5644C1.07308 9.98418 1.4263 8.90172 2.29788 8.82026L8.58889 8.23237L11.0801 2.40132Z" fill="currentColor"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.0801 2.40132C11.426 1.59206 12.574 1.59206 12.9199 2.40132L15.4112 8.23237L21.7022 8.82026C22.5738 8.90172 22.927 9.98418 22.2715 10.5644L17.5196 14.7714L18.9082 20.9785C19.1 21.8356 18.1727 22.5056 17.419 22.0546L12 18.8125L6.58108 22.0546L6.43753 22.1269C5.71543 22.4212 4.91213 21.7819 5.09182 20.9785L6.48049 14.7714L1.72854 10.5644C1.07308 9.98418 1.4263 8.90172 2.29788 8.82026L8.58889 8.23237L11.0801 2.40132Z" fill="currentColor"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.0801 2.40132C11.426 1.59206 12.574 1.59206 12.9199 2.40132L15.4112 8.23237L21.7022 8.82026C22.5738 8.90172 22.927 9.98418 22.2715 10.5644L17.5196 14.7714L18.9082 20.9785C19.1 21.8356 18.1727 22.5056 17.419 22.0546L12 18.8125L6.58108 22.0546L6.43753 22.1269C5.71543 22.4212 4.91213 21.7819 5.09182 20.9785L6.48049 14.7714L1.72854 10.5644C1.07308 9.98418 1.4263 8.90172 2.29788 8.82026L8.58889 8.23237L11.0801 2.40132Z" fill="currentColor"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.0801 2.40052C11.426 1.59126 12.574 1.59126 12.9199 2.40052L15.4112 8.23158L21.7022 8.81947C22.5738 8.90092 22.927 9.98339 22.2715 10.5636L17.5196 14.7706L18.9082 20.9777C19.1 21.8348 18.1727 22.5048 17.419 22.0538L12 18.8117L6.58108 22.0538L6.43753 22.1261C5.71543 22.4204 4.91213 21.7811 5.09182 20.9777L6.48049 14.7706L1.72854 10.5636C1.07308 9.98339 1.4263 8.90092 2.29788 8.81947L8.58889 8.23158L11.0801 2.40052ZM9.95999 10.1124L4.78128 10.5958L8.68948 14.0548L7.55081 19.1427L12 16.4806L16.4483 19.1427L15.3106 14.0548L19.2178 10.5958L14.0401 10.1124L12 5.339L9.95999 10.1124Z" fill="currentColor"/></svg>
+              </span>
+              <span class="rating-line__count">1,284 verified reviews</span>
+            </div>
+          </div>
+          <a class="xui-btn xui-btn--primary xui-btn--brand xui-btn--md xui-btn--spread" href="#">
+            <span class="xui-btn__label">Write a review</span>
+            <svg class="xui-btn__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.9983 19.0824L18.0706 13.0111L2.99927 13.0111L2.99927 11.0111L18.0706 11.0111L11.9993 4.93985L13.4133 3.52579L21.1915 11.304C21.5821 11.6945 21.5821 12.3277 21.1915 12.7182L13.4124 20.4965L11.9983 19.0824Z" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="home-grid">
+        <div class="view__section">
+          <div class="view__section-head">
+            <div>
+              <h5>Verified reviews</h5>
+              <p class="view__sub">Every review is tied to a real purchase and playtime through Xsolla — no bots, no review bombs.</p>
+            </div>
+          </div>
+          <div class="stack">
+            <article class="panel panel--hover review-card">
+              <div class="review-card__head">
+                <div class="xui-avatar xui-avatar--sm xui-avatar--circle">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/96?img=32" alt="KaiRunner" />
+                </div>
+                <div class="review-card__who">
+                  <div class="review-card__name">KaiRunner</div>
+                  <div class="review-card__hours">412 hours played · Level 71</div>
+                </div>
+                <span class="xui-tag xui-tag--xs xui-tag--secondary">Patch 2.4</span>
+                <span class="xui-tag xui-tag--xs xui-tag--success verified-chip">
+                  <svg class="xui-tag__icon" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Verified
+                </span>
+              </div>
+              <div class="review-card__stars" aria-label="Rated 5 out of 5">★★★★★</div>
+              <p class="review-card__text">Patch 2.4 finally fixed the netcode. Hit registration is crisp, ranked queues are under a minute, and the new movement tech has real depth. This is the game we were promised at launch — squad up and grind.</p>
+              <div class="review-card__foot">
+                <button class="xui-flex-btn xui-flex-btn--secondary xui-flex-btn--lg" type="button" data-helpful>
+                  <!-- icon_thumbs-up--line -->
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.8582 2C13.0489 2.00004 15.3934 4.94413 14.655 8H16.9352L17.2368 8.00879C20.327 8.18602 22.5643 11.0693 21.8744 14.0977L20.9637 18.0977L20.9103 18.3096C20.3152 20.4789 18.3174 22 16.0235 22H3.01256C2.48838 22 2.05692 21.6067 2.00494 21.1025L2 21V12C2 11.4477 2.45334 11 3.01256 11H6.80965L8.90102 2.73828C9.01081 2.30456 9.40551 2 9.8582 2ZM8.38979 13H4.02512V20H16.0235C17.4443 20 18.6752 19.0271 18.987 17.6582L19.8987 13.6582C20.3258 11.7827 18.8818 10 16.9352 10H12.0633L12.6793 7.56836C13.0719 6.01758 12.1116 4.50879 10.6414 4.10547L8.38979 13Z" fill="currentColor"/></svg>
+                  <span>Helpful (<span data-helpful-count>214</span>)</span>
+                </button>
+                <span class="feed-item__meta">Purchased through Xsolla · Reviewed 2 hours ago</span>
+              </div>
+            </article>
+
+            <article class="panel panel--hover review-card">
+              <div class="review-card__head">
+                <div class="xui-avatar xui-avatar--sm xui-avatar--circle">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/96?img=44" alt="MiraFrost" />
+                </div>
+                <div class="review-card__who">
+                  <div class="review-card__name">MiraFrost</div>
+                  <div class="review-card__hours">128 hours played · Level 87</div>
+                </div>
+                <span class="xui-tag xui-tag--xs xui-tag--secondary">Patch 2.4</span>
+                <span class="xui-tag xui-tag--xs xui-tag--success verified-chip">
+                  <svg class="xui-tag__icon" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Verified
+                </span>
+              </div>
+              <div class="review-card__stars" aria-label="Rated 4 out of 5">★★★★☆</div>
+              <p class="review-card__text">Co-op raids are the best in the genre right now. Matchmaking still pairs solos against full squads at high ranks, which stings — but the new season pass is generous and the gunplay carries it.</p>
+              <div class="review-card__foot">
+                <button class="xui-flex-btn xui-flex-btn--secondary xui-flex-btn--lg" type="button" data-helpful>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.8582 2C13.0489 2.00004 15.3934 4.94413 14.655 8H16.9352L17.2368 8.00879C20.327 8.18602 22.5643 11.0693 21.8744 14.0977L20.9637 18.0977L20.9103 18.3096C20.3152 20.4789 18.3174 22 16.0235 22H3.01256C2.48838 22 2.05692 21.6067 2.00494 21.1025L2 21V12C2 11.4477 2.45334 11 3.01256 11H6.80965L8.90102 2.73828C9.01081 2.30456 9.40551 2 9.8582 2ZM8.38979 13H4.02512V20H16.0235C17.4443 20 18.6752 19.0271 18.987 17.6582L19.8987 13.6582C20.3258 11.7827 18.8818 10 16.9352 10H12.0633L12.6793 7.56836C13.0719 6.01758 12.1116 4.50879 10.6414 4.10547L8.38979 13Z" fill="currentColor"/></svg>
+                  <span>Helpful (<span data-helpful-count>96</span>)</span>
+                </button>
+                <span class="feed-item__meta">Purchased through Xsolla · Reviewed yesterday</span>
+              </div>
+            </article>
+
+            <article class="panel panel--hover review-card">
+              <div class="review-card__head">
+                <div class="xui-avatar xui-avatar--sm xui-avatar--circle">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/96?img=12" alt="GuideSmith" />
+                </div>
+                <div class="review-card__who">
+                  <div class="review-card__name">GuideSmith</div>
+                  <div class="review-card__hours">1,204 hours played · Creator</div>
+                </div>
+                <span class="xui-tag xui-tag--xs xui-tag--secondary">Patch 2.3</span>
+                <span class="xui-tag xui-tag--xs xui-tag--success verified-chip">
+                  <svg class="xui-tag__icon" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Verified
+                </span>
+              </div>
+              <div class="review-card__stars" aria-label="Rated 4 out of 5">★★★★☆</div>
+              <p class="review-card__text">A thousand hours in: movement is the real endgame. My full route guide is linked on my profile. Devs read this feedback — recoil tuning from my patch 2.2 review made it into the changelog.</p>
+              <div class="review-card__foot">
+                <button class="xui-flex-btn xui-flex-btn--secondary xui-flex-btn--lg" type="button" data-helpful>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.8582 2C13.0489 2.00004 15.3934 4.94413 14.655 8H16.9352L17.2368 8.00879C20.327 8.18602 22.5643 11.0693 21.8744 14.0977L20.9637 18.0977L20.9103 18.3096C20.3152 20.4789 18.3174 22 16.0235 22H3.01256C2.48838 22 2.05692 21.6067 2.00494 21.1025L2 21V12C2 11.4477 2.45334 11 3.01256 11H6.80965L8.90102 2.73828C9.01081 2.30456 9.40551 2 9.8582 2ZM8.38979 13H4.02512V20H16.0235C17.4443 20 18.6752 19.0271 18.987 17.6582L19.8987 13.6582C20.3258 11.7827 18.8818 10 16.9352 10H12.0633L12.6793 7.56836C13.0719 6.01758 12.1116 4.50879 10.6414 4.10547L8.38979 13Z" fill="currentColor"/></svg>
+                  <span>Helpful (<span data-helpful-count>452</span>)</span>
+                </button>
+                <span class="feed-item__meta">Purchased through Xsolla · Reviewed 3 weeks ago</span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="view__section">
+          <div class="view__section-head">
+            <h5>Rating breakdown</h5>
+          </div>
+          <div class="panel stack">
+            <div class="xui-progress-bar xui-progress-bar--sm xui-progress-bar--default" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="5 stars share">
+              <div class="xui-progress-bar__header">
+                <div class="xui-progress-bar__label-group"><span class="xui-progress-bar__label">5 stars</span></div>
+              </div>
+              <div class="xui-progress-bar__track"><div class="xui-progress-bar__fill" style="width: 68%;"></div></div>
+            </div>
+            <div class="xui-progress-bar xui-progress-bar--sm xui-progress-bar--default" role="progressbar" aria-valuenow="21" aria-valuemin="0" aria-valuemax="100" aria-label="4 stars share">
+              <div class="xui-progress-bar__header">
+                <div class="xui-progress-bar__label-group"><span class="xui-progress-bar__label">4 stars</span></div>
+              </div>
+              <div class="xui-progress-bar__track"><div class="xui-progress-bar__fill" style="width: 21%;"></div></div>
+            </div>
+            <div class="xui-progress-bar xui-progress-bar--sm xui-progress-bar--default" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" aria-label="3 stars share">
+              <div class="xui-progress-bar__header">
+                <div class="xui-progress-bar__label-group"><span class="xui-progress-bar__label">3 stars</span></div>
+              </div>
+              <div class="xui-progress-bar__track"><div class="xui-progress-bar__fill" style="width: 7%;"></div></div>
+            </div>
+            <div class="xui-progress-bar xui-progress-bar--sm xui-progress-bar--default" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100" aria-label="2 stars and below share">
+              <div class="xui-progress-bar__header">
+                <div class="xui-progress-bar__label-group"><span class="xui-progress-bar__label">2 stars and below</span></div>
+              </div>
+              <div class="xui-progress-bar__track"><div class="xui-progress-bar__fill" style="width: 4%;"></div></div>
+            </div>
+            <span class="feed-item__meta">Based on 1,284 verified purchases</span>
+          </div>
+          <div style="margin-top: var(--xui-space-m);">
+            <div class="panel panel--accent stack stack--tight">
+              <h5>Are you the developer?</h5>
+              <p class="feed-item__text">Get sentiment dashboards, patch-by-patch trends, and beta sign-ups from this exact audience.</p>
+              <a class="xui-btn xui-btn--secondary xui-btn--brand xui-btn--sm xui-btn--spread" href="#">
+                <span class="xui-btn__label">Explore developer tools</span>
+                <svg class="xui-btn__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.9983 19.0824L18.0706 13.0111L2.99927 13.0111L2.99927 11.0111L18.0706 11.0111L11.9993 4.93985L13.4133 3.52579L21.1915 11.304C21.5821 11.6945 21.5821 12.3277 21.1915 12.7182L13.4124 20.4965L11.9983 19.0824Z" fill="currentColor"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ VIEW: SQUADS ══════════ -->
+    <section class="view" id="view-squads" role="tabpanel" aria-labelledby="main-tabs-tab-squads" hidden>
+      <div class="squads-grid">
+        <div class="view__section">
+          <div class="view__section-head">
+            <div>
+              <span class="view__kicker">Looking for group</span>
+              <h4>Find your squad</h4>
+              <p class="view__sub">Game-specific spaces for LFG, tips, and discussion — join one or start your own.</p>
+            </div>
+          </div>
+          <div class="stack">
+            <div class="xui-cell xui-cell--board">
+              <div class="xui-cell__slot">
+                <div class="xui-avatar xui-avatar--md xui-avatar--square" role="img" aria-label="Night Raiders">
+                  <span class="xui-avatar__text">NR</span>
+                </div>
+              </div>
+              <div class="xui-cell__content">
+                <span class="feed-item__title">Night Raiders</span>
+                <span class="feed-item__meta">Cyberstrike · 248 members · 8 online</span>
+              </div>
+              <div class="xui-cell__slot">
+                <span class="xui-tag xui-tag--xs xui-tag--brand">Your squad</span>
+              </div>
+            </div>
+            <div class="xui-cell xui-cell--board">
+              <div class="xui-cell__slot">
+                <div class="xui-avatar xui-avatar--md xui-avatar--square" role="img" aria-label="Star Pilots">
+                  <span class="xui-avatar__text">SP</span>
+                </div>
+              </div>
+              <div class="xui-cell__content">
+                <span class="feed-item__title">Star Pilots</span>
+                <span class="feed-item__meta">Starfall Odyssey · 1,024 members · 37 online</span>
+              </div>
+              <div class="xui-cell__slot">
+                <button class="xui-btn xui-btn--secondary xui-btn--brand xui-btn--xs" type="button">
+                  <span class="xui-btn__label">Join</span>
+                </button>
+              </div>
+            </div>
+            <div class="xui-cell xui-cell--board">
+              <div class="xui-cell__slot">
+                <div class="xui-avatar xui-avatar--md xui-avatar--square" role="img" aria-label="Keep Watch">
+                  <span class="xui-avatar__text">KW</span>
+                </div>
+              </div>
+              <div class="xui-cell__content">
+                <span class="feed-item__title">Keep Watch</span>
+                <span class="feed-item__meta">Last Keep · 512 members · 12 online</span>
+              </div>
+              <div class="xui-cell__slot">
+                <button class="xui-btn xui-btn--secondary xui-btn--brand xui-btn--xs" type="button">
+                  <span class="xui-btn__label">Join</span>
+                </button>
+              </div>
+            </div>
+            <button class="xui-btn xui-btn--ghost xui-btn--brand xui-btn--sm xui-btn--full-width" type="button">
+              <!-- icon_plus--line -->
+              <svg class="xui-btn__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 11H21V13H13V21H11V13H3V11H11V3H13V11Z" fill="currentColor"/></svg>
+              <span class="xui-btn__label">Create a space</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="view__section">
+          <div class="view__section-head">
+            <h5>Night Raiders</h5>
+            <div class="xui-avatar-group" role="group" aria-label="3 of 8 members online">
+              <div class="xui-avatar-group__item" style="z-index: 3;">
+                <div class="xui-avatar xui-avatar--xs xui-avatar--circle xui-avatar--stroke">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/64?img=32" alt="KaiRunner" />
+                </div>
+              </div>
+              <div class="xui-avatar-group__item xui-avatar-group__item--overlap" style="z-index: 2;">
+                <div class="xui-avatar xui-avatar--xs xui-avatar--circle xui-avatar--stroke">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/64?img=5" alt="Vex" />
+                </div>
+              </div>
+              <div class="xui-avatar-group__item xui-avatar-group__item--overlap" style="z-index: 1;">
+                <div class="xui-avatar xui-avatar--xs xui-avatar--circle xui-avatar--stroke" role="img" aria-label="5 more members">
+                  <span class="xui-avatar__text">+5</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel chat">
+            <div class="chat__log" id="chat-log">
+              <div class="chat__msg">
+                <div class="xui-avatar xui-avatar--xs xui-avatar--circle">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/64?img=32" alt="KaiRunner" />
+                </div>
+                <div>
+                  <div class="chat__bubble">Ranked at 21:00 — who's in? We need a flex and a support.</div>
+                  <div class="chat__meta">KaiRunner · 20:12</div>
+                </div>
+              </div>
+              <div class="chat__msg">
+                <div class="xui-avatar xui-avatar--xs xui-avatar--circle">
+                  <img class="xui-avatar__img" src="https://i.pravatar.cc/64?img=5" alt="Vex" />
+                </div>
+                <div>
+                  <div class="chat__bubble">In. Read GuideSmith's movement guide today — new routes on Foundry are broken good.</div>
+                  <div class="chat__meta">Vex · 20:15</div>
+                </div>
+              </div>
+              <div class="chat__msg chat__msg--own">
+                <div>
+                  <div class="chat__bubble">Count me in for flex. Queue up at 21:00 sharp.</div>
+                  <div class="chat__meta">You · 20:16</div>
+                </div>
+              </div>
+            </div>
+            <div class="chat__composer">
+              <div class="xui-input-wrapper xui-input--sm">
+                <div class="xui-input__container">
+                  <input class="xui-input" type="text" id="chat-input" placeholder="Message Night Raiders" aria-label="Message Night Raiders" />
+                </div>
+              </div>
+              <button class="xui-icon-btn xui-btn--primary xui-btn--brand xui-btn--sm" aria-label="Send message" id="chat-send" type="button">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.9983 19.0824L18.0706 13.0111L2.99927 13.0111L2.99927 11.0111L18.0706 11.0111L11.9993 4.93985L13.4133 3.52579L21.1915 11.304C21.5821 11.6945 21.5821 12.3277 21.1915 12.7182L13.4124 20.4965L11.9983 19.0824Z" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ VIEW: PASSPORT ══════════ -->
+    <section class="view" id="view-passport" role="tabpanel" aria-labelledby="main-tabs-tab-passport" hidden>
+      <div class="passport-grid">
+        <div class="view__section">
+          <div class="panel panel--accent passport-id">
+            <div class="xui-avatar xui-avatar--xl xui-avatar--circle">
+              <img class="xui-avatar__img" src="https://i.pravatar.cc/128?img=15" alt="NovaStrike" />
+            </div>
+            <div>
+              <h4>NovaStrike</h4>
+              <p class="view__sub">One gaming passport for every store, squad, and review.</p>
+            </div>
+            <div class="xui-tag-label xui-tag-label--entity-account" role="group" aria-label="Account, ID XSQ-8842-107, NovaStrike">
+              <span class="xui-tag-label__entity">
+                <!-- tag_label_entity_account -->
+                <svg class="xui-tag-label__entity-icon-img" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5 17.5H2.5V2.5H17.5V17.5ZM10.0423 15.8333L15.0423 10.8333H5.04232L10.0423 15.8333ZM10.0423 5C8.66161 5 7.54232 6.11929 7.54232 7.5C7.54232 8.88071 8.66161 10 10.0423 10C11.423 10 12.5423 8.88071 12.5423 7.5C12.5423 6.11929 11.423 5 10.0423 5Z" fill="currentColor"/></svg>
+                <span class="xui-tag-label__entity-text">Account</span>
+              </span>
+              <span class="xui-tag-label__id">
+                <span class="xui-tag-label__id-series">XSQ</span><span class="xui-tag-label__id-number">-8842-107</span>
+              </span>
+              <span class="xui-tag-label__name">NovaStrike</span>
+            </div>
+            <span class="xui-tag xui-tag--sm xui-tag--success">
+              <svg class="xui-tag__icon" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Verified player
+            </span>
+            <div class="xui-progress-bar xui-progress-bar--md xui-progress-bar--default" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100" aria-label="Level progress">
+              <div class="xui-progress-bar__header">
+                <div class="xui-progress-bar__label-group"><span class="xui-progress-bar__label">Level 42</span></div>
+              </div>
+              <div class="xui-progress-bar__track"><div class="xui-progress-bar__fill" style="width: 71%;"></div></div>
+              <span class="xui-progress-bar__helper">2,140 / 3,000 XP to level 43</span>
+            </div>
+            <button class="xui-btn xui-btn--secondary xui-btn--brand xui-btn--sm xui-btn--full-width" type="button">
+              <span class="xui-btn__label">Customize passport</span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div class="view__section">
+            <div class="stat-tiles">
+              <div class="stat-tile">
+                <span class="stat-tile__value">1,872</span>
+                <span class="stat-tile__label">Hours played</span>
+              </div>
+              <div class="stat-tile">
+                <span class="stat-tile__value stat-tile__value--brand">214</span>
+                <span class="stat-tile__label">Achievements</span>
+              </div>
+              <div class="stat-tile">
+                <span class="stat-tile__value">36</span>
+                <span class="stat-tile__label">Verified reviews</span>
+              </div>
+            </div>
+          </div>
+          <div class="view__section">
+            <div class="view__section-head">
+              <h5>Achievements</h5>
+              <button class="xui-flex-btn xui-flex-btn--brand xui-flex-btn--lg" type="button">See all 214</button>
+            </div>
+            <div class="achievement-row">
+              <div class="achievement">
+                <span class="achievement__icon">
+                  <!-- icon_trophy--line -->
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.0054 22H6.00537V20H18.0054V22ZM4.00537 7V9C4.00537 10.1046 4.9008 11 6.00537 11V7H4.00537ZM8.00537 12.3252L8.06299 12.6689C8.38037 14.5601 10.0264 16 12.0054 16V18C9.03249 18 6.56655 15.8376 6.09033 13H6.00537L5.79932 12.9951C3.68593 12.8879 2.00537 11.14 2.00537 9V6C2.00537 5.44772 2.45309 5 3.00537 5H6.00537V3.58301C6.00555 3.2611 6.26647 3.00018 6.58838 3H17.4224L17.5396 3.01172C17.8053 3.06606 18.0052 3.30123 18.0054 3.58301V5H21.0054L21.1079 5.00488C21.612 5.05621 22.0054 5.48232 22.0054 6V9C22.0054 11.14 20.3248 12.8879 18.2114 12.9951L18.0054 13H17.9204C17.4442 15.8376 14.9783 18 12.0054 18V16C13.9843 16 15.6304 14.5601 15.9478 12.6689L16.0054 12.3252V5H8.00537V12.3252ZM18.0054 11C19.1099 11 20.0054 10.1046 20.0054 9V7H18.0054V11Z" fill="currentColor"/></svg>
+                </span>
+                <span class="achievement__name">Season champion</span>
+                <span class="achievement__date">June 2026</span>
+              </div>
+              <div class="achievement">
+                <span class="achievement__icon">
+                  <!-- icon_crown--line -->
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19.6651 20.9997H4.33404V18.9997H19.6651V20.9997ZM11.2178 3.37474C11.6182 2.87448 12.38 2.87537 12.7803 3.37571L16.2335 7.69212L20.4844 5.14231C21.2344 4.69243 22.1598 5.35452 21.9766 6.2097L19.6651 16.9997H4.33404L2.02154 6.2097C1.83832 5.35459 2.76377 4.69269 3.51372 5.14231L7.76372 7.69212L11.2178 3.37474ZM8.23443 10.3074L4.45904 8.04173L5.95025 14.9997H18.0479L19.5381 8.04173L15.7637 10.3074L11.9991 5.6013L8.23443 10.3074Z" fill="currentColor"/></svg>
+                </span>
+                <span class="achievement__name">Top reviewer</span>
+                <span class="achievement__date">May 2026</span>
+              </div>
+              <div class="achievement">
+                <span class="achievement__icon">
+                  <!-- icon_users--line -->
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 14C8.20914 14 10 15.7909 10 18V21H8V18C8 16.8954 7.10457 16 6 16C4.89543 16 4 16.8954 4 18V21H2V18C2 15.7909 3.79086 14 6 14ZM15 21H13V18C13 16.8954 12.1046 16 11 16V14C13.2091 14 15 15.7909 15 18V21ZM20 12H22V14H20V16H18V14H16V12H18V10H20V12ZM6 5C8.20914 5 10 6.79086 10 9C10 11.2091 8.20914 13 6 13C3.79086 13 2 11.2091 2 9C2 6.79086 3.79086 5 6 5ZM11 5C13.2091 5 15 6.79086 15 9C15 11.2091 13.2091 13 11 13V11C12.1046 11 13 10.1046 13 9C13 7.89543 12.1046 7 11 7V5ZM6 7C4.89543 7 4 7.89543 4 9C4 10.1046 4.89543 11 6 11C7.10457 11 8 10.1046 8 9C8 7.89543 7.10457 7 6 7Z" fill="currentColor"/></svg>
+                </span>
+                <span class="achievement__name">Squad leader</span>
+                <span class="achievement__date">April 2026</span>
+              </div>
+              <div class="achievement achievement--locked">
+                <span class="achievement__icon">
+                  <!-- icon_star--line -->
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.0801 2.40052C11.426 1.59126 12.574 1.59126 12.9199 2.40052L15.4112 8.23158L21.7022 8.81947C22.5738 8.90092 22.927 9.98339 22.2715 10.5636L17.5196 14.7706L18.9082 20.9777C19.1 21.8348 18.1727 22.5048 17.419 22.0538L12 18.8117L6.58108 22.0538L6.43753 22.1261C5.71543 22.4204 4.91213 21.7811 5.09182 20.9777L6.48049 14.7706L1.72854 10.5636C1.07308 9.98339 1.4263 8.90092 2.29788 8.81947L8.58889 8.23158L11.0801 2.40052ZM9.95999 10.1124L4.78128 10.5958L8.68948 14.0548L7.55081 19.1427L12 16.4806L16.4483 19.1427L15.3106 14.0548L19.2178 10.5958L14.0401 10.1124L12 5.339L9.95999 10.1124Z" fill="currentColor"/></svg>
+                </span>
+                <span class="achievement__name">Critic's Eye</span>
+                <span class="achievement__date">1 review to go</span>
+              </div>
+            </div>
+          </div>
+          <div class="view__section">
+            <div class="view__section-head">
+              <h5>Library highlights</h5>
+              <button class="xui-flex-btn xui-flex-btn--brand xui-flex-btn--lg" type="button">See all 128</button>
+            </div>
+            <div class="library-grid">
+              <div class="xui-game-card xui-game-card--sm">
+                <div class="xui-game-card__inner">
+                  <div class="xui-game-card__image-wrap">
+                    <img class="xui-game-card__img" src="https://picsum.photos/seed/xsq-cyber/400/226" alt="Cyberstrike cover art" />
+                    <div class="xui-game-card__fade" aria-hidden="true"></div>
+                    <div class="xui-game-card__tag-label-wrap">
+                      <div class="xui-tag-label xui-game-card__tag-label" role="group" aria-label="ID XSQ-042, Cyberstrike">
+                        <span class="xui-tag-label__id"><span class="xui-tag-label__id-series">XSQ</span><span class="xui-tag-label__id-number">-042</span></span>
+                        <span class="xui-tag-label__name">Cyberstrike</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="xui-game-card__footer">
+                    <div class="xui-game-card__text">
+                      <span class="xui-game-card__title">Cyberstrike</span>
+                      <span class="xui-game-card__subtitle">412 hours</span>
+                    </div>
+                    <button type="button" class="xui-game-card__btn">Play</button>
+                  </div>
+                </div>
+              </div>
+              <div class="xui-game-card xui-game-card--sm">
+                <div class="xui-game-card__inner">
+                  <div class="xui-game-card__image-wrap">
+                    <img class="xui-game-card__img" src="https://picsum.photos/seed/xsq-starfall/400/226" alt="Starfall Odyssey cover art" />
+                    <div class="xui-game-card__fade" aria-hidden="true"></div>
+                    <div class="xui-game-card__tag-label-wrap">
+                      <div class="xui-tag-label xui-game-card__tag-label" role="group" aria-label="ID XSQ-204, Starfall Odyssey">
+                        <span class="xui-tag-label__id"><span class="xui-tag-label__id-series">XSQ</span><span class="xui-tag-label__id-number">-204</span></span>
+                        <span class="xui-tag-label__name">Starfall Odyssey</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="xui-game-card__footer">
+                    <div class="xui-game-card__text">
+                      <span class="xui-game-card__title">Starfall Odyssey</span>
+                      <span class="xui-game-card__subtitle">86 hours</span>
+                    </div>
+                    <button type="button" class="xui-game-card__btn">Play</button>
+                  </div>
+                </div>
+              </div>
+              <div class="xui-game-card xui-game-card--sm">
+                <div class="xui-game-card__inner">
+                  <div class="xui-game-card__image-wrap">
+                    <img class="xui-game-card__img" src="https://picsum.photos/seed/xsq-keep/400/226" alt="Last Keep cover art" />
+                    <div class="xui-game-card__fade" aria-hidden="true"></div>
+                    <div class="xui-game-card__tag-label-wrap">
+                      <div class="xui-tag-label xui-game-card__tag-label" role="group" aria-label="ID XSQ-151, Last Keep">
+                        <span class="xui-tag-label__id"><span class="xui-tag-label__id-series">XSQ</span><span class="xui-tag-label__id-number">-151</span></span>
+                        <span class="xui-tag-label__name">Last Keep</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="xui-game-card__footer">
+                    <div class="xui-game-card__text">
+                      <span class="xui-game-card__title">Last Keep</span>
+                      <span class="xui-game-card__subtitle">44 hours</span>
+                    </div>
+                    <button type="button" class="xui-game-card__btn">Play</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app__footer">
+    <div class="row">
+      <img src="https://storage.googleapis.com/strapi-v2-bucket-prod/logo_white_d71075213d/logo_white_d71075213d.svg" alt="Xsolla" width="120" height="25" />
+      <span class="app__footer-note">XSquad is part of the Xsolla ecosystem. Reviews are verified against real purchases.</span>
+    </div>
+    <div class="app__footer-links">
+      <a class="app-link" href="#">Publisher Account</a>
+      <a class="app-link" href="#">Partner Network</a>
+      <a class="app-link" href="#">Xsolla Wallet</a>
+      <a class="app-link" href="#">Privacy</a>
+    </div>
+  </footer>
+</div>
+<script>
+  (function () {
+    // ── Tab bar: view switching + sliding indicator ──
+    var tabBar = document.getElementById('main-tabs');
+    var tabs = Array.prototype.slice.call(tabBar.querySelectorAll('[role="tab"]'));
+    var indicator = tabBar.querySelector('.xui-tab-bar__indicator');
+
+    function positionIndicator(tab) {
+      indicator.style.left = tab.offsetLeft + 'px';
+      indicator.style.width = tab.offsetWidth + 'px';
+    }
+
+    function activate(tab) {
+      tabs.forEach(function (t) {
+        var active = t === tab;
+        t.classList.toggle('xui-tab-bar__item--active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+        t.setAttribute('tabindex', active ? '0' : '-1');
+        var view = document.getElementById('view-' + t.dataset.view);
+        if (view) {
+          view.classList.toggle('view--active', active);
+          if (active) { view.removeAttribute('hidden'); } else { view.setAttribute('hidden', ''); }
+        }
+      });
+      positionIndicator(tab);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () { activate(tab); });
+    });
+    tabBar.addEventListener('keydown', function (e) {
+      var idx = tabs.indexOf(document.activeElement);
+      if (idx === -1) return;
+      var next = null;
+      if (e.key === 'ArrowRight') next = tabs[(idx + 1) % tabs.length];
+      if (e.key === 'ArrowLeft') next = tabs[(idx - 1 + tabs.length) % tabs.length];
+      if (e.key === 'Home') next = tabs[0];
+      if (e.key === 'End') next = tabs[tabs.length - 1];
+      if (next) { e.preventDefault(); next.focus(); activate(next); }
+    });
+    window.addEventListener('resize', function () {
+      var current = tabBar.querySelector('.xui-tab-bar__item--active');
+      if (current) positionIndicator(current);
+    });
+    positionIndicator(tabs[0]);
+
+    // ── Cross-view shortcuts (e.g. hero CTA → Discover) ──
+    document.querySelectorAll('[data-goto]').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        e.preventDefault();
+        var target = tabs.filter(function (t) { return t.dataset.view === el.dataset.goto; })[0];
+        if (target) activate(target);
+      });
+    });
+
+    // ── Discover: genre filter chips (single-select) ──
+    var chips = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) {
+          var selected = c === chip;
+          c.classList.toggle('xui-tag--selected', selected);
+          c.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        });
+      });
+    });
+
+    // ── Reviews: helpful votes (toggle once) ──
+    document.querySelectorAll('[data-helpful]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var count = btn.querySelector('[data-helpful-count]');
+        var voted = btn.dataset.voted === 'true';
+        count.textContent = parseInt(count.textContent, 10) + (voted ? -1 : 1);
+        btn.dataset.voted = voted ? 'false' : 'true';
+        btn.classList.toggle('xui-flex-btn--brand', !voted);
+        btn.classList.toggle('xui-flex-btn--secondary', voted);
+      });
+    });
+
+    // ── Home: cheer a squadmate ──
+    document.querySelectorAll('[data-cheer]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var count = btn.querySelector('[data-cheer-count]');
+        var cheered = btn.dataset.cheered === 'true';
+        count.textContent = parseInt(count.textContent, 10) + (cheered ? -1 : 1);
+        btn.dataset.cheered = cheered ? 'false' : 'true';
+        btn.classList.toggle('xui-flex-btn--brand', !cheered);
+        btn.classList.toggle('xui-flex-btn--secondary', cheered);
+      });
+    });
+
+    // ── Squads: chat composer ──
+    var chatLog = document.getElementById('chat-log');
+    var chatInput = document.getElementById('chat-input');
+    var chatSend = document.getElementById('chat-send');
+    function sendMessage() {
+      var text = chatInput.value.trim();
+      if (!text) return;
+      var msg = document.createElement('div');
+      msg.className = 'chat__msg chat__msg--own';
+      var inner = document.createElement('div');
+      var bubble = document.createElement('div');
+      bubble.className = 'chat__bubble';
+      bubble.textContent = text;
+      var meta = document.createElement('div');
+      meta.className = 'chat__meta';
+      meta.textContent = 'You · just now';
+      inner.appendChild(bubble);
+      inner.appendChild(meta);
+      msg.appendChild(inner);
+      chatLog.appendChild(msg);
+      chatInput.value = '';
+      msg.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+    chatSend.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') sendMessage();
+    });
+  })();
+</script>
+</body>
+</html>
